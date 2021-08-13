@@ -1,16 +1,15 @@
 class guitarString {
-    constructor(name, accidentals) {
+    constructor(name, key) {
         this.name = name;
-        this.accidentals = accidentals
-        this.notes = this.findNotes()
+        this.notes = this.findNotes(key)
         this.alignNotes(this.name);
     }
 
-    findNotes() {
-        if (this.accidentals === "sharp") {
-            return ["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"];
-        } else {
+    findNotes(key) {
+        if (key.split("").includes("b") || key === "F") { 
             return ["A", "Bb", "B", "C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab"]
+        } else {
+            return ["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"];  
         }
     }
 

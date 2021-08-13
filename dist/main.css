@@ -49,3 +49,17 @@
   background: peachpuff;
   z-index: 1;
 }
+
+.chord {
+  display: flex;
+  flex-direction: row;
+  font-size: xx-large;
+}
+
+.chord:hover {
+  cursor: pointer;
+}
+
+.chord.C:hover {
+  color: blue;
+}

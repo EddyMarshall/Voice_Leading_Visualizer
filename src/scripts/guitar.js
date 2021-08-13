@@ -1,15 +1,16 @@
 import guitarString from "./guitarstring"
+import Scale from "./scale";
 
 class Guitar {
-    constructor(body, accidentals) {
+    constructor(body, key) {
         this.strings = []
         this.body = body
-        this.setupGuitar(accidentals)
-        // this.handleClick = this.handleClick.bind(this);
-        // this.ele.addEventListener("click", this.handleClick());
+        this.key = key
+        this.setupGuitar(key)
+        this.scale = new Scale(key);
     }
 
-    setupGuitar(accidentals) {
+    setupGuitar() {
         const guitarDiv = document.createElement("div")
         guitarDiv.classList.add("guitar")
         this.body.appendChild(guitarDiv);
@@ -18,7 +19,7 @@ class Guitar {
         for (let i = 0; i < array.length; i++) {
             const stringDiv = document.createElement("div");
             stringDiv.classList.add("guitarstring")
-            const addition = new guitarString(array[i], accidentals)
+            const addition = new guitarString(array[i], this.key)
 
             for (let i = 0; i < addition.notes.length; i++) {
                 const noteDiv = document.createElement("div");
@@ -32,9 +33,7 @@ class Guitar {
         }
     }
 
-    // handleClick() {
-    //     this.ele.chilren[0].innerText = "Ouch";
-    // }
+
 }
 
 
