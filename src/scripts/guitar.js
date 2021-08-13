@@ -25,6 +25,7 @@ class Guitar {
                 for (let i = 0; i < addition.notes.length; i++) {
                     const noteDiv = document.createElement("div");
                     noteDiv.classList.add("note")
+                    noteDiv.classList.add(`${addition.notes[i]}`)
                     noteDiv.innerHTML = `${addition.notes[i]}`
                     stringDiv.appendChild(noteDiv)
                 }
