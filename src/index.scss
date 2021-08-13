@@ -1,0 +1,49 @@
+#main{
+    color: purple
+}
+.guitar {
+    display: flex;
+    background: beige;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 100px;
+    height: 200px;
+}
+
+.guitarstring {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    position: relative;
+    top: 12px;
+}
+
+.guitarstring:before {
+    content: "";
+    width: 100%;
+    height: 5px;
+    background: black;
+    position: absolute;
+}
+
+.note {
+    display: flex;
+    flex: 1;
+    color: blue;
+    border-right: 3px solid;
+    justify-content: center;
+    position: relative;
+    bottom: 8px;
+    text-align: center;
+    
+}
+
+.note:before {
+    
+    height: 25px;
+    border-radius: 50%;
+    line-height: 25px;
+    
+    background: peachpuff;
+    z-index: 1;
+}
