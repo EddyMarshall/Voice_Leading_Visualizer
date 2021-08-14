@@ -2,22 +2,24 @@ class guitarString {
     constructor(name, key) {
         this.name = name;
         this.notes = this.findNotes(key)
-        this.alignNotes(this.name);
     }
 
     findNotes(key) {
+        let newArr = []
         if (key.split("").includes("b") || key === "F") { 
-            return ["A", "Bb", "B", "C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab"]
+            newArr = ["A", "Bb", "B", "C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab"]
         } else {
-            return ["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"];  
+            newArr = ["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"];  
         }
+        return this.alignNotes(this.name, newArr)
     }
 
-    alignNotes(name) {
-        while (this.notes[0] != name) {
-            let holder = this.notes.shift();
-            this.notes.push(holder);
+    alignNotes(name, arr) {
+        while (arr[0] != name) {
+            let holder = arr.shift();
+            arr.push(holder);
         }
+        return arr;
     }
 
 }

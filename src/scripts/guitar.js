@@ -10,7 +10,7 @@ class Guitar {
         this.scale = new Scale(key);
     }
 
-    setupGuitar() {
+    setupGuitar(key) {
         const guitarDiv = document.createElement("div")
         guitarDiv.classList.add("guitar")
         this.body.appendChild(guitarDiv);
@@ -19,7 +19,7 @@ class Guitar {
         for (let i = 0; i < array.length; i++) {
             const stringDiv = document.createElement("div");
             stringDiv.classList.add("guitarstring")
-            const addition = new guitarString(array[i], this.key)
+            const addition = new guitarString(array[i], key)
 
             for (let i = 0; i < addition.notes.length; i++) {
                 const noteDiv = document.createElement("div");
