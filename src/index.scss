@@ -1,6 +1,8 @@
-#main{
-    color: purple
+
+:root {
+    --noteOpacity: 0;
 }
+
 .guitar {
     display: flex;
     background: beige;
@@ -44,20 +46,8 @@
     text-align: center;
     background: peachpuff;
     z-index: 1;
-    // opacity: 0;
+    opacity: var(--noteOpacity);
 }
 
-.chord {
-    display: flex;
-    flex-direction: row;
-    font-size: xx-large;
-}
 
-.chord:hover {
-    cursor: pointer;
-}
 
-.chord.C:hover {
-    color: blue;
-
-}
