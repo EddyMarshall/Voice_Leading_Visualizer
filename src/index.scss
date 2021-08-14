@@ -54,5 +54,7 @@ h1 {
     opacity: var(--noteOpacity);
 }
 
-
-
+.nav {
+    display: flex;
+    justify-content: space-around;
+}

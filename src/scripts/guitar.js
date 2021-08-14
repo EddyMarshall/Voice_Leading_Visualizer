@@ -67,6 +67,17 @@ class Guitar {
                 newArr.push(new Chord(scale[i], "diminished", scale, i + 1))
             }
         }
+        const changeChordForm = document.createElement("select");
+        changeChordForm.classList.add("chord-change")
+        changeChordForm.id = "chord-change"
+        changeChordForm.innerHTML += `<option>Choose Chord</option>`;
+        for (let i = newArr.length - 1; i >= 0; i--) {
+            let valueArr = ["'", `${i + 1}`, "'"];
+            let input = `<option value=${valueArr.join("")}>${newArr[i].name} ${newArr[i].quality}</option>`;
+            changeChordForm.innerHTML += input;
+        }
+        const nav = document.getElementById("nav")
+        nav.appendChild(changeChordForm)
         return newArr
     }
 
@@ -85,9 +96,32 @@ class Guitar {
             }
             
         }
+    }
 
+    showChord(num) {
+
+        let clearNotes = document.querySelectorAll(".note")
+        clearNotes.forEach(function(ele) {
+            ele.style.setProperty("--noteOpacity", 0)
+        })
+
+        let show = this.chords[num - 1]
+
+        for (let i = 0; i < show.triad.length; i++) {
+            if (!show.triad[i].includes("#")) {
         
+                let shows = document.querySelectorAll(`[data-note-short=${show.triad[i]}]`)
         
+                shows.forEach(function (ele) {
+                    ele.style.setProperty("--noteOpacity", 1)
+                });
+            } else {
+                let shows = document.querySelectorAll(`[data-note-long=${show[0]}sharp]`)
+                shows.forEach(function (ele) {
+                    ele.style.setProperty("--noteOpacity", 1)
+                });
+            }
+        }
     }
 
 
