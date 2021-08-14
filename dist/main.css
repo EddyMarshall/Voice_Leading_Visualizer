@@ -53,6 +53,8 @@ h1 {
   text-align: center;
   background: peachpuff;
   z-index: 1;
+  transition-property: opacity;
+  transition-duration: 1s;
   opacity: var(--noteOpacity);
 }
 

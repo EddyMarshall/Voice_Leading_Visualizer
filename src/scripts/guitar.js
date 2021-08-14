@@ -104,7 +104,6 @@ class Guitar {
         clearNotes.forEach(function(ele) {
             ele.style.setProperty("--noteOpacity", 0)
         })
-
         let show = this.chords[num - 1]
         for (let i = 0; i < show.triad.length; i++) {
             if (!show.triad[i].includes("#")) {
