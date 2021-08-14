@@ -1,7 +1,7 @@
 class Scale {
-    constructor(key) {
+    constructor(key, accidentals) {
         this.key = key;
-        this.accidentals = ["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"];
+        this.accidentals = accidentals;
         this.notes = this.buildkey();
     }
 
