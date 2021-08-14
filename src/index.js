@@ -1,5 +1,4 @@
 import Guitar from "./scripts/guitar"
-import Chord from "./scripts/chord"
 
 
 document.addEventListener("DOMContentLoaded", ()=>{
@@ -8,6 +7,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
     const body = document.getElementById("body")
     const dynamic = document.getElementById("dynamic")
     let content = new Guitar(body, "C", dynamic);
+    addChordChangeListener();
     
     //Re-renders the page based on the KEY selected in the DD menu
     const keyChange = document.getElementById("key-change")
@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
         document.getElementById("dynamic").innerHTML = ""
         resetChordMenu();
         content = new Guitar(body, newKey, dynamic);
+        addChordChangeListener();
     }
 
     //helper method to alter selectable chords depending on chosen key
@@ -26,10 +27,15 @@ document.addEventListener("DOMContentLoaded", ()=>{
         menu.parentNode.removeChild(menu);
     }
 
+    function addChordChangeListener() {
+        const newChord = document.getElementById("chord-change")
+        newChord.addEventListener("change", showChord);
+    }
 
+
+    
     // Re-renders the page based on the CHORD selected in the chord DD menu
-    const newChord = document.getElementById("chord-change")
-    newChord.addEventListener("change", showChord);
+
     function showChord() {
         let menu = document.getElementById("chord-change");
         let harmonicFunction = menu.options[menu.selectedIndex].value;
