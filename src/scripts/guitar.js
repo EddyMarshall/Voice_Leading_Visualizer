@@ -5,9 +5,17 @@ class Guitar {
     constructor(body, key) {
         this.strings = []
         this.body = body
+        this.header = this.createHeader(key)
         this.key = key
         this.setupGuitar(key)
         this.scale = new Scale(key);
+    }
+
+    createHeader(key) {
+        const header = document.createElement("h1")
+        header.innerHTML = `Key of ${key} major`
+        debugger
+        this.body.appendChild(header);
     }
 
     setupGuitar(key) {
