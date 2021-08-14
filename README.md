@@ -63,7 +63,7 @@ ________________________________________________________________________________
 * Wednesday: Make everything look beautiful, add audio. Have all of my musician friends break the code by stress testing it.
 
 __________________________________________________________________________________________
-Bonus Features:
+### Bonus Features:
 
 * This will eventually be expanded to display sheet music as well as a guitar visualization so that it can be used by musicians on other chordal instruments such as the piano.
 
