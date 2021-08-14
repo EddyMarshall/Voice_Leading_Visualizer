@@ -1,27 +1,24 @@
 import Guitar from "./scripts/guitar"
-import Chord from "./scripts/chord";
+import Scale from "./scripts/scale"
 
 
 document.addEventListener("DOMContentLoaded", ()=>{
 
 
     const body = document.getElementById("body")
-    // const guitar1 = new Guitar(body, "G");
-    const guitar2 = new Guitar(body, "Eb");
-    // const chord = new Chord("B", "Major", ["A", "B", "C#", "D", "E", "F#", "G#"])
-    console.log(guitar2)
-
-    // let strings = document.getElementsByClassName("guitarstring")
-    // for (let i = 0; i < strings.length; i++) {
-    //     strings[i].addEventListener("mouseover", (event) => {
-    //         event.target.style.setProperty("--noteOpacity", 1)
-    //     })
-    //     strings[i].addEventListener("mouseout", (event) => {
-    //         event.target.style.setProperty("--noteOpacity", 0)
-    //     })
-
-    // }
+    const dynamic = document.getElementById("dynamic")
+    let content = new Guitar(body, "C", dynamic);
+    // let test = new Scale("Eb", ["A", "Bb", "B", "C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab"])
+    // console.log(test)
+    function changeKey() {
+        let menu = document.getElementById("key-change");
+        let newKey = menu.options[menu.selectedIndex].value;
+        document.getElementById("dynamic").innerHTML = ""
+        content = new Guitar(body, newKey, dynamic);
+    }
+    body.addEventListener("change", changeKey);
     
+
 
 
 })

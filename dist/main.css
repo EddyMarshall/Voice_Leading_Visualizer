@@ -12,7 +12,7 @@ h1 {
 
 .guitar {
   display: flex;
-  background: beige;
+  background: MistyRose;
   flex-direction: column;
   width: 100%;
   margin-top: 100px;
@@ -45,7 +45,7 @@ h1 {
 }
 
 .note::before {
-  content: attr(data-note);
+  content: attr(data-note-short);
   width: 25px;
   height: 25px;
   border-radius: 50%;

@@ -8,7 +8,7 @@ class Scale {
     buildkey() {
         let newArr = [];
 
-        while (this.accidentals[0][0] != this.key[0]) {
+        while (this.accidentals[0] != this.key) {
             let holder = this.accidentals.shift();
             this.accidentals.push(holder);
         }
@@ -20,14 +20,7 @@ class Scale {
         newArr.push(this.accidentals[7])
         newArr.push(this.accidentals[9])
         newArr.push(this.accidentals[11])
-        if (this.key.split("").includes("b")) {
-            for (let i = 0; i < newArr.length; i++){
-                if (newArr[i].split("").includes("#")) {
-                    let newIndex = this.accidentals.indexOf(newArr[i]) + 1;
-                    newArr[i] = this.accidentals[newIndex] + "b"
-                }
-            }
-        }
+
         if (this.key === "F") {
             newArr[3] = "Bb"
         }

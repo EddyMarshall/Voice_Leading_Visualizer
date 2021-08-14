@@ -2,7 +2,7 @@ class guitarString {
     constructor(name, key, accidentals) {
         this.name = name;
         this.accidentals = accidentals
-        this.alignNotes(key)
+        this.alignNotes(name)
     }
 
     alignNotes(name) {

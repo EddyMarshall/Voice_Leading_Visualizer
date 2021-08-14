@@ -3,15 +3,17 @@ import guitarString from "./guitarstring"
 import Scale from "./scale";
 
 class Guitar {
-    constructor(body, key) {
+    constructor(body, key, dynamic) {
+        this.key = key
         this.strings = []
         this.body = body
+        this.dynamic = dynamic
         this.header = this.createHeader(key)
-        this.key = key
         this.accidentals = this.buildAccidentals();
         this.setupGuitar(key)
         this.scale = new Scale(key, this.accidentals);
         this.chords = this.buildChords(this.scale.notes)
+        this.showNotes(this.scale.notes)
     }
 
     buildAccidentals() {
@@ -25,13 +27,13 @@ class Guitar {
     createHeader(key) {
         const header = document.createElement("h1")
         header.innerHTML = `Key of ${key} major`
-        this.body.appendChild(header);
+        this.dynamic.appendChild(header);
     }
 
     setupGuitar(key) {
         const guitarDiv = document.createElement("div")
         guitarDiv.classList.add("guitar")
-        this.body.appendChild(guitarDiv);
+        this.dynamic.appendChild(guitarDiv);
         const array = ["E", "B", "G", "D", "A", "E"]
 
         for (let i = 0; i < array.length; i++) {
@@ -42,7 +44,11 @@ class Guitar {
                 const noteDiv = document.createElement("div");
                 noteDiv.classList.add(`note`)
                 noteDiv.classList.add(`${addition.accidentals[i]}`)
-                noteDiv.setAttribute("data-note", `${addition.accidentals[i]}`)
+                noteDiv.setAttribute("data-note-short", `${addition.accidentals[i]}`)
+                if (addition.accidentals[i].split("").includes("#")) {
+                    noteDiv.setAttribute("data-note-long", `${addition.accidentals[i][0]}sharp`)
+                }
+
                 stringDiv.appendChild(noteDiv)
             }
             this.strings.push(addition)
@@ -62,6 +68,26 @@ class Guitar {
             }
         }
         return newArr
+    }
+
+    showNotes(scale) {
+        for (let i = 0; i < scale.length; i++) {
+            if (!scale[i].split("").includes("#")) {
+                let shows = document.querySelectorAll(`[data-note-short=${scale[i]}]`)
+                shows.forEach(function (ele) {
+                    ele.style.setProperty("--noteOpacity", 1)
+                });
+            } else {
+                let shows = document.querySelectorAll(`[data-note-long=${scale[i][0]}sharp]`)
+                shows.forEach(function (ele) {
+                    ele.style.setProperty("--noteOpacity", 1)
+                });
+            }
+            
+        }
+
+        
+        
     }
 
 
