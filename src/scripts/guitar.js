@@ -106,17 +106,14 @@ class Guitar {
         })
 
         let show = this.chords[num - 1]
-
         for (let i = 0; i < show.triad.length; i++) {
             if (!show.triad[i].includes("#")) {
-        
                 let shows = document.querySelectorAll(`[data-note-short=${show.triad[i]}]`)
-        
                 shows.forEach(function (ele) {
                     ele.style.setProperty("--noteOpacity", 1)
                 });
             } else {
-                let shows = document.querySelectorAll(`[data-note-long=${show[0]}sharp]`)
+                let shows = document.querySelectorAll(`[data-note-long=${show.triad[i][0]}sharp]`)
                 shows.forEach(function (ele) {
                     ele.style.setProperty("--noteOpacity", 1)
                 });

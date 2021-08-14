@@ -35,7 +35,6 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
     
     // Re-renders the page based on the CHORD selected in the chord DD menu
-
     function showChord() {
         let menu = document.getElementById("chord-change");
         let harmonicFunction = menu.options[menu.selectedIndex].value;
