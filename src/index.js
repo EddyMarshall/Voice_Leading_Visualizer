@@ -108,12 +108,9 @@ document.addEventListener("DOMContentLoaded", ()=>{
         if (button.innerText === "Enter Voice Leading Mode") {
             button.innerText = "Exit Voice Leading Mode"
             content = new voiceLead([1, 2, 3], [6, 12], content.key);
-
+            currentMenu.style.visibility = "visible"
             if (currentMenu.children.length === 0) {
                 menus.makeVoiceLeadingMenus();
-            }
-            if (document.getElementsByClassName("VL-menu").length === 0) {
-                currentMenu.style.visibility = "visible"
             }
         } else {
             button.innerText = "Enter Voice Leading Mode"
@@ -123,6 +120,11 @@ document.addEventListener("DOMContentLoaded", ()=>{
         resetChordMenu();
         addChordChangeListener();
     }
+
+
+    //add event listeners to voice leading menus
+
+
 
     
 

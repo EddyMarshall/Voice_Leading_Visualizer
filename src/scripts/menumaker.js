@@ -33,6 +33,12 @@ class MenuMaker {
 
         parent.appendChild(fretRanges)
         parent.style.visibility = "visible"
+
+        parent.addEventListener("change", this.adjustVoiceLeading)
+    }
+
+    adjustVoiceLeading() {
+        console.log("FUCK YEAH");
     }
 
 }
