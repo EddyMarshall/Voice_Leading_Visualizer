@@ -56,13 +56,21 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
     //adjusts page depending on scale/chord radio selection
     function scalesToggle() {
-        let preSelectedChord = document.getElementById("chord-change").options[7].value;;
+        let preSelectedChord = document.getElementById("chord-change").options[7];
         const radioSelection = document.getElementsByName("show-toggle")[0];
+        let chordMenu = document.getElementById("chord-change");
+        let prevSelected = chordMenu.options[chordMenu.selectedIndex];
 
         if (radioSelection.checked === true) {
             content.showNotes(content.scale.notes);
+            document.getElementById("chord-change").firstChild.innerHTML = "Choose Chord"
         } else {
-            content.showChord(preSelectedChord)
+            if (prevSelected.value === "Choose Chord") {
+                document.getElementById("chord-change").firstChild.innerHTML = `${preSelectedChord.innerHTML}`
+                content.showChord(preSelectedChord.value)
+            } else {
+                showChord(prevSelected.value)    
+            }
         }
     }
 
