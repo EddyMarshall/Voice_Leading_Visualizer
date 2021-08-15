@@ -41,7 +41,12 @@ document.addEventListener("DOMContentLoaded", ()=>{
     function showChord() {
         let menu = document.getElementById("chord-change");
         let harmonicFunction = menu.options[menu.selectedIndex].value;
-        content.showChord(harmonicFunction)
+        if (harmonicFunction === "Choose Chord") {
+            content.showChord(1)
+            menu.options[menu.selectedIndex].innerHTML = "C Major"
+        } else {
+            content.showChord(harmonicFunction)
+        }
         document.getElementsByName("show-toggle")[0].checked = false
         document.getElementsByName("show-toggle")[1].checked = true
     }
@@ -56,7 +61,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
     //adjusts page depending on scale/chord radio selection
     function scalesToggle() {
-        let preSelectedChord = document.getElementById("chord-change").options[7];
+        let defaultChord = document.getElementById("chord-change").options[7];
         const radioSelection = document.getElementsByName("show-toggle")[0];
         let chordMenu = document.getElementById("chord-change");
         let prevSelected = chordMenu.options[chordMenu.selectedIndex];
@@ -66,10 +71,10 @@ document.addEventListener("DOMContentLoaded", ()=>{
             document.getElementById("chord-change").firstChild.innerHTML = "Choose Chord"
         } else {
             if (prevSelected.value === "Choose Chord") {
-                document.getElementById("chord-change").firstChild.innerHTML = `${preSelectedChord.innerHTML}`
-                content.showChord(preSelectedChord.value)
+                document.getElementById("chord-change").firstChild.innerHTML = `${defaultChord.innerHTML}`
+                content.showChord(defaultChord.value)
             } else {
-                showChord(prevSelected.value)    
+                content.showChord(prevSelected.value)    
             }
         }
     }

@@ -26,7 +26,7 @@ class Guitar {
 
     createHeader(key) {
         const header = document.createElement("h1")
-        header.innerHTML = `Key of ${key} major`
+        header.innerHTML = `Key of ${key} Major`
         this.dynamic.appendChild(header);
     }
 
@@ -60,11 +60,11 @@ class Guitar {
         let newArr = []
         for (let i = 0; i < scale.length; i++) {
             if (i === 0 || i === 3 || i === 4) {
-                newArr.push(new Chord(scale[i], "major", scale, i + 1))
+                newArr.push(new Chord(scale[i], "Major", scale, i + 1))
             } else if (i === 1 || i === 2 || i === 5) {
-                newArr.push(new Chord(scale[i], "minor", scale, i + 1))
+                newArr.push(new Chord(scale[i], "Minor", scale, i + 1))
             } else if (i === 6) {
-                newArr.push(new Chord(scale[i], "diminished", scale, i + 1))
+                newArr.push(new Chord(scale[i], "Diminished", scale, i + 1))
             }
         }
         const changeChordForm = document.createElement("select");
