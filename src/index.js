@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
         let harmonicFunction = menu.options[menu.selectedIndex].value;
         if (harmonicFunction === "Choose Chord") {
             content.showChord(1)
-            menu.options[menu.selectedIndex].innerHTML = "C Major"
+            menu.options[menu.selectedIndex].innerHTML = `${content.chords[0].name} ${content.chords[0].quality}`
         } else {
             content.showChord(harmonicFunction)
         }

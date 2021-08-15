@@ -27,6 +27,7 @@ class Guitar {
     createHeader(key) {
         const header = document.createElement("h1")
         header.innerHTML = `Key of ${key} Major`
+        header.classList.add("header")
         this.dynamic.appendChild(header);
     }
 
