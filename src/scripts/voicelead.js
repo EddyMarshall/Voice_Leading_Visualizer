@@ -1,9 +1,9 @@
 import Guitar from "./guitar"
 
 class voiceLead {
-    constructor(startStrings, startFrets) {
+    constructor(startStrings, startFrets, key) {
         this.startFrets = startFrets;
-        this.guitar = new Guitar(body, "A", dynamic)
+        this.guitar = new Guitar(body, key, dynamic)
         this.setupVoiceLead();
         this.names = ["E", "B", "G", "D", "A", "E"]
         this.startStringNumbers = this.numberTheStrings(startStrings);
@@ -76,10 +76,13 @@ class voiceLead {
     }
 
     showTriad() {
-        let chordTones = ["A", "D", "F#"]
+        let chordTones = ["G", "B", "D"]
         var counter = 0
         let allNotes = document.getElementsByClassName("note")
         for (let i = 0; i < allNotes.length; i++) {
+            if (counter === 3) {
+                break;
+            }
             let note = allNotes[i];
             if (note.id[1] < 10) {
                 if (this.fretRange.includes(parseInt(note.id[1]))) {
@@ -88,12 +91,13 @@ class voiceLead {
                             let currentValue = note.id.slice(2, 4)
                             if (chordTones.includes(currentValue)) {
                                 note.style.setProperty("--noteOpacity", 1);
+                                counter += 1
                             }
                         } else {
                             for (let j = 0; j < chordTones.length; j++) {
-                                // debugger
                                 if (chordTones[j] === note.id[2]) {
                                     note.style.setProperty("--noteOpacity", 1);
+                                    counter += 1
                                 }
                             }
                         }

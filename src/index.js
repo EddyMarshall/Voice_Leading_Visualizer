@@ -1,5 +1,6 @@
 import Guitar from "./scripts/guitar"
 import voiceLead from "./scripts/voicelead"
+import MenuMaker from "./scripts/menumaker"
 
 
 document.addEventListener("DOMContentLoaded", ()=>{
@@ -7,10 +8,12 @@ document.addEventListener("DOMContentLoaded", ()=>{
     //initializes with default setting
     const body = document.getElementById("body")
     const dynamic = document.getElementById("dynamic")
-    // let content = new Guitar(body, "C", dynamic);
-    let content = new voiceLead([2, 3, 4], [6, 12]);
+    let content = new Guitar(body, "C", dynamic);
+    let menus = new MenuMaker();
+    // let content = new voiceLead([1, 2, 3], [6, 12]);
     addToggleListener();
     addChordChangeListener();
+    addVoiceLeadToggleEventListener();
     
     //Re-renders the page based on the KEY selected in the DD menu
     const keyChange = document.getElementById("key-change")
@@ -20,10 +23,15 @@ document.addEventListener("DOMContentLoaded", ()=>{
         let newKey = menu.options[menu.selectedIndex].value;
         document.getElementById("dynamic").innerHTML = ""
         resetChordMenu();
-        content = new Guitar(body, newKey, dynamic);
+        if (document.getElementById("voice-lead-toggle").innerText = "Exit Voice Leading Mode") {
+            content = new voiceLead([1, 2, 3], [6, 12], newKey)
+        } else {
+            content = new Guitar(body, newKey, dynamic);
+        }
         document.getElementsByName("show-toggle")[0].checked = true
         document.getElementsByName("show-toggle")[1].checked = false
         addChordChangeListener();
+        addVoiceLeadToggleEventListener();
     }
 
     //helper method to alter selectable chords depending on chosen key
@@ -41,6 +49,10 @@ document.addEventListener("DOMContentLoaded", ()=>{
     
     // Re-renders the page based on the CHORD selected in the chord DD menu
     function showChord() {
+        let button = document.getElementById("voice-lead-toggle")
+        if (button.innerText === "Exit Voice Leading Mode") {
+            button.click();
+        }
         let menu = document.getElementById("chord-change");
         let harmonicFunction = menu.options[menu.selectedIndex].value;
         if (harmonicFunction === "Choose Chord") {
@@ -82,6 +94,37 @@ document.addEventListener("DOMContentLoaded", ()=>{
             }
         }
     }
+
+    //adds event listener to voice leading mode button
+    function addVoiceLeadToggleEventListener() {
+        const button = document.getElementById("voice-lead-toggle");
+        button.addEventListener("click", switchModes)
+    }
+
+    function switchModes() {
+        const button = document.getElementById("voice-lead-toggle");
+        document.getElementById("dynamic").innerHTML = ""
+        const currentMenu = document.getElementById("voice-leading-menus")
+        if (button.innerText === "Enter Voice Leading Mode") {
+            button.innerText = "Exit Voice Leading Mode"
+            content = new voiceLead([1, 2, 3], [6, 12], content.key);
+
+            if (currentMenu.children.length === 0) {
+                menus.makeVoiceLeadingMenus();
+            }
+            if (document.getElementsByClassName("VL-menu").length === 0) {
+                currentMenu.style.visibility = "visible"
+            }
+        } else {
+            button.innerText = "Enter Voice Leading Mode"
+            currentMenu.style.visibility = "hidden"
+            content = new Guitar(body, content.guitar.key, dynamic);
+        }
+        resetChordMenu();
+        addChordChangeListener();
+    }
+
+    
 
 
 
