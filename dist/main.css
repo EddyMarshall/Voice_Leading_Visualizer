@@ -51,7 +51,7 @@ h1 {
   border-radius: 50%;
   line-height: 25px;
   text-align: center;
-  background: peachpuff;
+  background: cornflowerblue;
   z-index: 1;
   transition-property: opacity;
   transition-duration: 1s;
@@ -61,4 +61,9 @@ h1 {
 .nav {
   display: flex;
   justify-content: space-around;
+}
+
+h3 {
+  display: flex;
+  justify-content: center;
 }

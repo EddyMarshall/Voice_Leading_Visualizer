@@ -1,4 +1,5 @@
 import Guitar from "./scripts/guitar"
+import voiceLead from "./scripts/voicelead"
 
 
 document.addEventListener("DOMContentLoaded", ()=>{
@@ -6,7 +7,8 @@ document.addEventListener("DOMContentLoaded", ()=>{
     //initializes with default setting
     const body = document.getElementById("body")
     const dynamic = document.getElementById("dynamic")
-    let content = new Guitar(body, "C", dynamic);
+    // let content = new Guitar(body, "C", dynamic);
+    let content = new voiceLead([2, 3, 4], [6, 12]);
     addToggleListener();
     addChordChangeListener();
     
@@ -44,6 +46,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
         if (harmonicFunction === "Choose Chord") {
             content.showChord(1)
             menu.options[menu.selectedIndex].innerHTML = `${content.chords[0].name} ${content.chords[0].quality}`
+            menu.options[menu.selectedIndex].value = `${content.chords[0].name} ${content.chords[0].quality}`
         } else {
             content.showChord(harmonicFunction)
         }
@@ -72,15 +75,13 @@ document.addEventListener("DOMContentLoaded", ()=>{
         } else {
             if (prevSelected.value === "Choose Chord") {
                 document.getElementById("chord-change").firstChild.innerHTML = `${defaultChord.innerHTML}`
+                document.getElementById("chord-change").firstChild.value = "1"
                 content.showChord(defaultChord.value)
             } else {
                 content.showChord(prevSelected.value)    
             }
         }
     }
-
-
-    
 
 
 

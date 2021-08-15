@@ -46,6 +46,7 @@ class Guitar {
                 noteDiv.classList.add(`note`)
                 noteDiv.classList.add(`${addition.accidentals[i]}`)
                 noteDiv.setAttribute("data-note-short", `${addition.accidentals[i]}`)
+                noteDiv.id = `${addition.name}${i}${noteDiv.dataset.noteShort}`
                 if (addition.accidentals[i].split("").includes("#")) {
                     noteDiv.setAttribute("data-note-long", `${addition.accidentals[i][0]}sharp`)
                 }
@@ -55,6 +56,15 @@ class Guitar {
             this.strings.push(addition)
             guitarDiv.appendChild(stringDiv);
         }
+        this.adjustRepeatedIds();
+    }
+
+    adjustRepeatedIds() {
+        let notesToAdjust = document.getElementsByClassName("guitarstring")[0].children
+        notesToAdjust.forEach(function(ele){
+            ele.id += "high"
+        })
+
     }
 
     buildChords(scale) {
@@ -100,7 +110,6 @@ class Guitar {
     }
 
     showChord(num) {
-
         let clearNotes = document.querySelectorAll(".note")
         clearNotes.forEach(function(ele) {
             ele.style.setProperty("--noteOpacity", 0)
@@ -120,6 +129,7 @@ class Guitar {
             }
         }
     }
+
 
 
 }
