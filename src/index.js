@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", ()=>{
     const dynamic = document.getElementById("dynamic")
     let content = new Guitar(body, "C", dynamic);
     let menus = new MenuMaker();
-    // let content = new voiceLead([1, 2, 3], [6, 12]);
     addToggleListener();
     addChordChangeListener();
     addVoiceLeadToggleEventListener();
@@ -24,7 +23,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
         document.getElementById("dynamic").innerHTML = ""
         resetChordMenu();
         if (document.getElementById("voice-lead-toggle").innerText = "Exit Voice Leading Mode") {
-            content = new voiceLead([1, 2, 3], [6, 12], newKey)
+            content = new voiceLead(newKey)
         } else {
             content = new Guitar(body, newKey, dynamic);
         }
@@ -50,15 +49,19 @@ document.addEventListener("DOMContentLoaded", ()=>{
     // Re-renders the page based on the CHORD selected in the chord DD menu
     function showChord() {
         let button = document.getElementById("voice-lead-toggle")
-        if (button.innerText === "Exit Voice Leading Mode") {
-            button.click();
-        }
         let menu = document.getElementById("chord-change");
         let harmonicFunction = menu.options[menu.selectedIndex].value;
         if (harmonicFunction === "Choose Chord") {
             content.showChord(1)
             menu.options[menu.selectedIndex].innerHTML = `${content.chords[0].name} ${content.chords[0].quality}`
             menu.options[menu.selectedIndex].value = `${content.chords[0].name} ${content.chords[0].quality}`
+        }
+        if (button.innerText === "Exit Voice Leading Mode") {
+            const stringChoices = document.getElementById("string-selector");
+            const stringChoice = stringChoices.options[stringChoices.selectedIndex].value;
+            const fretChoices = document.getElementById("fret-range-selector");
+            const fretChoice = fretChoices.options[fretChoices.selectedIndex].value;
+            content.showTriad(harmonicFunction, stringChoice, fretChoice)
         } else {
             content.showChord(harmonicFunction)
         }
@@ -107,7 +110,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
         const currentMenu = document.getElementById("voice-leading-menus")
         if (button.innerText === "Enter Voice Leading Mode") {
             button.innerText = "Exit Voice Leading Mode"
-            content = new voiceLead([1, 2, 3], [6, 12], content.key);
+            content = new voiceLead(content.key);
             currentMenu.style.visibility = "visible"
             if (currentMenu.children.length === 0) {
                 menus.makeVoiceLeadingMenus();
@@ -121,8 +124,6 @@ document.addEventListener("DOMContentLoaded", ()=>{
         addChordChangeListener();
     }
 
-
-    //add event listeners to voice leading menus
 
 
 
