@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
         if (document.getElementById("voice-lead-toggle").innerText = "Exit Voice Leading Mode") {
             content = new voiceLead(newKey, 1)
         } else {
+            document.getElementsByClassName("navradios").style.setProperty("--noteOpacity", 1)
             content = new Guitar(body, newKey, dynamic);
         }
         document.getElementsByName("show-toggle")[0].checked = true
@@ -111,7 +112,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
             content = new voiceLead(content.key, 1);
             currentMenu.style.visibility = "visible"
             if (currentMenu.children.length === 0) {
-                menus.makeVoiceLeadingMenus();
+                makeVoiceLeadingMenus();
             }
         } else {
             button.innerText = "Enter Voice Leading Mode"
@@ -120,6 +121,50 @@ document.addEventListener("DOMContentLoaded", ()=>{
         }
         resetChordMenu();
         addChordChangeListener();
+    }
+
+    function makeVoiceLeadingMenus() {
+        let parent = document.getElementById("voice-leading-menus");
+        const stringOption = document.createElement("select")
+        stringOption.classList.add("VL-menu")
+        stringOption.id = "string-selector"
+
+
+        for (let i = 1; i < 5; i++) {
+            let choice = document.createElement("option")
+            choice.value = [i, i + 1, i + 2]
+            choice.innerText = `strings: ${i}, ${i + 1}, ${i + 2}`
+            stringOption.appendChild(choice)
+        }
+
+
+
+        parent.appendChild(stringOption)
+        parent.style.visibility = "visible"
+        parent.addEventListener("change", adjustVoiceLeading.bind(content, ...[]))
+    }
+
+    function adjustVoiceLeading(content) {
+
+
+        const stringChoices = document.getElementById("string-selector");
+        const stringChoice = stringChoices.options[stringChoices.selectedIndex].value;
+
+        let chordMenu = document.getElementById("chord-change");
+        let harmonicFunction = chordMenu.options[chordMenu.selectedIndex].value;
+
+        if (harmonicFunction === "Choose Chord") {
+            harmonicFunction = 1;
+        }
+
+        let fretRange = "";
+        if (stringChoice === "3,4,5" || stringChoice === "4,5,6") {
+            fretRange += "4, 9"
+        } else {
+            fretRange += "3, 8"
+        }
+        this.createOriginalChord(harmonicFunction, stringChoice, fretRange)
+
     }
 
 

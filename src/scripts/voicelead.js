@@ -1,11 +1,11 @@
 import Guitar from "./guitar"
 
 class voiceLead {
-    constructor(key, oldHarmonicFunction) {
+    constructor(key, oldHarmonicFunction, stringChoice = "1, 2, 3", range = "3, 8") {
         this.guitar = new Guitar(body, key, dynamic)
         this.clearOldTriad();
         this.names = ["E", "B", "G", "D", "A", "E"]
-        this.createOriginalChord(1, "1, 2, 3", "3, 8")
+        this.createOriginalChord(1, stringChoice, range)
         this.oldHarmonicFunction = oldHarmonicFunction
         
     }
