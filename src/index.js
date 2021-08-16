@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
         document.getElementById("dynamic").innerHTML = ""
         resetChordMenu();
         if (document.getElementById("voice-lead-toggle").innerText = "Exit Voice Leading Mode") {
-            content = new voiceLead(newKey)
+            content = new voiceLead(newKey, 1)
         } else {
             content = new Guitar(body, newKey, dynamic);
         }
@@ -59,9 +59,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
         if (button.innerText === "Exit Voice Leading Mode") {
             const stringChoices = document.getElementById("string-selector");
             const stringChoice = stringChoices.options[stringChoices.selectedIndex].value;
-            const fretChoices = document.getElementById("fret-range-selector");
-            const fretChoice = fretChoices.options[fretChoices.selectedIndex].value;
-            content.showTriad(harmonicFunction, stringChoice, fretChoice)
+            content.showNextTriad(harmonicFunction, stringChoice)
         } else {
             content.showChord(harmonicFunction)
         }
@@ -110,7 +108,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
         const currentMenu = document.getElementById("voice-leading-menus")
         if (button.innerText === "Enter Voice Leading Mode") {
             button.innerText = "Exit Voice Leading Mode"
-            content = new voiceLead(content.key);
+            content = new voiceLead(content.key, 1);
             currentMenu.style.visibility = "visible"
             if (currentMenu.children.length === 0) {
                 menus.makeVoiceLeadingMenus();
