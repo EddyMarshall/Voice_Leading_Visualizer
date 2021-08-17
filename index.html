@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="./dist/reset.css" />
     <link rel="stylesheet" href="./dist/main.css" />
     <script src="./dist/main.js"></script>
     <title>Voice Leading Visualizer</title>
@@ -12,21 +13,22 @@
 </head>
 
 <body id="body">
-    <div class="nav" id="nav">
-        <select name="key-change" id="key-change">
-            <option value="">Change Key</option>
-            <option value="C">C major</option>
-            <option value="B">B major</option>
-            <option value="Bb">Bb major</option>
-            <option value="A">A major</option>
-            <option value="Ab">Ab major</option>
-            <option value="G">G major</option>
-            <option value="Gb">Gb major</option>
-            <option value="F">F major</option>
-            <option value="E">E major</option>
-            <option value="Eb">Eb major</option>
-            <option value="D">D major</option>
-            <option value="Db">Db major</option>
+    <h1>Voice Leading Visualizer</h1>
+    <div class="lower-nav" id="lower-nav">
+        <select name="key-change dropdown" id="key-change">
+            <option class="dropdown-choices" value="">Change Key</option>
+            <option class="dropdown-choices" value="C">C major</option>
+            <option class="dropdown-choices" value="B">B major</option>
+            <option class="dropdown-choices" value="Bb">Bb major</option>
+            <option class="dropdown-choices" value="A">A major</option>
+            <option class="dropdown-choices" value="Ab">Ab major</option>
+            <option class="dropdown-choices" value="G">G major</option>
+            <option class="dropdown-choices" value="Gb">Gb major</option>
+            <option class="dropdown-choices" value="F">F major</option>
+            <option class="dropdown-choices" value="E">E major</option>
+            <option class="dropdown-choices" value="Eb">Eb major</option>
+            <option class="dropdown-choices" value="D">D major</option>
+            <option class="dropdown-choices" value="Db">Db major</option>
         </select>
         <div class="navradios">
             <label for="scales">Scales

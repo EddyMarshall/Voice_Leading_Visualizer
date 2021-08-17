@@ -7,11 +7,21 @@ class voiceLead {
         this.names = ["E", "B", "G", "D", "A", "E"]
         this.createOriginalChord(1, stringChoice, range)
         this.oldHarmonicFunction = oldHarmonicFunction
-        
+        this.hideUpperMenus();
     }
 
+    hideUpperMenus(){
+        let ddMenu = document.getElementById("key-change")
+        ddMenu.style.setProperty("--noteOpacity", 0);
+        
+        let radios = document.getElementsByClassName("navradios")
+        radios.forEach(function (ele) {
+            ele.style.visibility = "hidden"
+        })
+    }
 
     createOriginalChord(harmonicFunction, stringChoice, fretChoice) {
+        this.guitar.createSecondaryHeader(harmonicFunction - 1)
         let alignedStrings = this.numberTheStrings(stringChoice.split(","));
         let usedString = [];
         let fretsArray = this.findRange(fretChoice.split(","))
@@ -99,6 +109,7 @@ class voiceLead {
     }
 
     showNextTriad(harmonicFunction, stringChoice) {
+        this.guitar.createSecondaryHeader(harmonicFunction - 1)
         let alignedStrings = this.numberTheStrings(stringChoice.split(","));
         let originalElements = document.getElementsByClassName("showing")
 
@@ -120,7 +131,6 @@ class voiceLead {
                         stringIterator += 1
                     } else {
                         if (harmonicDistance % 2 === 0) {
-
                             if (newChordTones.includes(usedStrings[stringIterator].children[checkIndex + 1].id[2])) {
                                 usedStrings[stringIterator].children[checkIndex + 1].style.setProperty("--noteOpacity", 1);
                                 usedStrings[stringIterator].children[checkIndex + 1].classList.add("showing")
@@ -132,16 +142,22 @@ class voiceLead {
                             usedStrings[stringIterator].children[checkIndex].classList.remove("showing")
                             
                         } else {
-                            if (newChordTones.includes(usedStrings[stringIterator].children[checkIndex - 1].id[2]) &&
-                                usedStrings[stringIterator].children[checkIndex - 1].id.includes("#") === false) {
-                                usedStrings[stringIterator].children[checkIndex - 1].style.setProperty("--noteOpacity", 1);
-                                usedStrings[stringIterator].children[checkIndex - 1].classList.add("showing")
+                            if (checkIndex - 1 > -1) {
+                                if (newChordTones.includes(usedStrings[stringIterator].children[checkIndex - 1].id[2]) &&
+                                    usedStrings[stringIterator].children[checkIndex - 1].id.includes("#") === false) {
+                                    usedStrings[stringIterator].children[checkIndex - 1].style.setProperty("--noteOpacity", 1);
+                                    usedStrings[stringIterator].children[checkIndex - 1].classList.add("showing")
+                                } else {
+                                    usedStrings[stringIterator].children[checkIndex - 2].style.setProperty("--noteOpacity", 1);
+                                    usedStrings[stringIterator].children[checkIndex - 2].classList.add("showing")
+                                }
+                                usedStrings[stringIterator].children[checkIndex].style.setProperty("--noteOpacity", 0);
+                                usedStrings[stringIterator].children[checkIndex].classList.remove("showing")
                             } else {
-                                usedStrings[stringIterator].children[checkIndex - 2].style.setProperty("--noteOpacity", 1);
-                                usedStrings[stringIterator].children[checkIndex - 2].classList.add("showing")
+                                console.log("reset")
+                                indexIterator += 50
+                                stringIterator += 1
                             }
-                            usedStrings[stringIterator].children[checkIndex].style.setProperty("--noteOpacity", 0);
-                            usedStrings[stringIterator].children[checkIndex].classList.remove("showing")
                         }
                         indexIterator += 1
                         stringIterator += 1
@@ -246,11 +262,6 @@ class voiceLead {
 
     }
 
-
-
-
-
-
     findOldTones() {
         if (this.guitar.chords[this.oldHarmonicFunction - 1] === undefined) {
             return this.guitar.chords[6].triad
@@ -266,28 +277,6 @@ class voiceLead {
         }
         return newArr;
     }
-
-
-
-
-//only iterate through THAT string with the differecnce(s) string
-
-    //find index of old differences         
-    //hide old notes        
-    //if harmonic distance is even          
-        //travel up from oldindex until note matches newnote
-        //show new note
-        //repeat
-    //if harmonic distance is odd
-        //travel down from oldindex until note matches newnote
-        //show new note
-        //repeat
-//this should happen regardless of fret range
-
-//
-
-
-
 
 }
 

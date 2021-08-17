@@ -13,25 +13,30 @@ document.addEventListener("DOMContentLoaded", ()=>{
     addToggleListener();
     addChordChangeListener();
     addVoiceLeadToggleEventListener();
+    addFretDots();
+    addFretNums();
     
     //Re-renders the page based on the KEY selected in the DD menu
     const keyChange = document.getElementById("key-change")
     keyChange.addEventListener("change", changeKey);
+
     function changeKey() {
-        let menu = document.getElementById("key-change");
-        let newKey = menu.options[menu.selectedIndex].value;
-        document.getElementById("dynamic").innerHTML = ""
-        resetChordMenu();
-        if (document.getElementById("voice-lead-toggle").innerText = "Exit Voice Leading Mode") {
-            content = new voiceLead(newKey, 1)
-        } else {
-            document.getElementsByClassName("navradios").style.setProperty("--noteOpacity", 1)
-            content = new Guitar(body, newKey, dynamic);
-        }
-        document.getElementsByName("show-toggle")[0].checked = true
-        document.getElementsByName("show-toggle")[1].checked = false
-        addChordChangeListener();
-        addVoiceLeadToggleEventListener();
+            let menu = document.getElementById("key-change");
+            let newKey = menu.options[menu.selectedIndex].value;
+            document.getElementById("dynamic").innerHTML = ""
+            resetChordMenu();
+
+            if (document.getElementById("voice-lead-toggle").innerText === "Enter Voice Leading Mode") {
+                content = new Guitar(body, newKey, dynamic);
+                addFretDots()
+            } else {      
+                content = new voiceLead("C", 1)
+                addFretDots()
+            }
+            document.getElementsByName("show-toggle")[0].checked = true
+            document.getElementsByName("show-toggle")[1].checked = false
+            addChordChangeListener();
+            addVoiceLeadToggleEventListener();
     }
 
     //helper method to alter selectable chords depending on chosen key
@@ -109,7 +114,8 @@ document.addEventListener("DOMContentLoaded", ()=>{
         const currentMenu = document.getElementById("voice-leading-menus")
         if (button.innerText === "Enter Voice Leading Mode") {
             button.innerText = "Exit Voice Leading Mode"
-            content = new voiceLead(content.key, 1);
+            content = new voiceLead("content.key", 1);
+            addFretDots();
             currentMenu.style.visibility = "visible"
             if (currentMenu.children.length === 0) {
                 makeVoiceLeadingMenus();
@@ -118,6 +124,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
             button.innerText = "Enter Voice Leading Mode"
             currentMenu.style.visibility = "hidden"
             content = new Guitar(body, content.guitar.key, dynamic);
+            addFretDots();
         }
         resetChordMenu();
         addChordChangeListener();
@@ -156,21 +163,76 @@ document.addEventListener("DOMContentLoaded", ()=>{
         if (harmonicFunction === "Choose Chord") {
             harmonicFunction = 1;
         }
-
         let fretRange = "";
-        if (stringChoice === "3,4,5" || stringChoice === "4,5,6") {
-            fretRange += "4, 9"
-        } else {
-            fretRange += "3, 8"
+        if (harmonicFunction === 1 || parseInt(harmonicFunction) === 3 || 
+            parseInt(harmonicFunction) === 5) {
+            if (stringChoice === "3,4,5" || stringChoice === "4,5,6") {
+                    fretRange += "4, 9"
+                } else {
+                    fretRange += "3, 8"
+                }
+            } else if (parseInt(harmonicFunction) === 2) {          
+                if (stringChoice === "3,4,5") {
+                    fretRange += "6, 10"
+                } else if (stringChoice === "4,5,6") {
+                    fretRange += "3, 5"
+                } else {
+                    fretRange += "5, 7"
+                }
+            } else if (parseInt(harmonicFunction) === 4) {
+                if (stringChoice === "1,2,3" || stringChoice === "2,3,4") {
+                    fretRange += "5, 7"
+                } else if (stringChoice === "3,4,5") {
+                    fretRange += "5, 8"
+                } else {
+                    fretRange += "6, 8"
+                }
+            } else if (parseInt(harmonicFunction) === 6) {
+                if (stringChoice === "1,2,3" || stringChoice === "2,3,4" ||
+                    stringChoice === "3,4,5") {
+                        fretRange += "5, 7"
+                } else {
+                    fretRange += "6, 8"
+                }
+            } else if (parseInt(harmonicFunction) === 7) {
+                if (stringChoice === "1,2,3" || stringChoice === "2,3,4") {
+                  fretRange += "6, 9"
+                } else if (stringChoice === "3,4,5") {
+                    fretRange += "3, 5"
+                } else {
+                    fretRange += "3, 7"
+                }
+
+
         }
         this.createOriginalChord(harmonicFunction, stringChoice, fretRange)
-
     }
 
 
 
 
+    function addFretDots() {
+        let middleString = document.getElementsByClassName("guitarstring")[2];
+        for (let i = 0; i < middleString.children.length; i++) {
+            if (i === 3 || i === 5 || i === 7 || i === 9 ) {
+                middleString.children[i].classList.add("dot-marker")
+            }
+        }
+    }
     
+
+    function addFretNums() {
+        let firstString = document.getElementsByClassName("guitarstring")[0];
+        for (let i = 0; i < firstString.children.length; i++) {
+            if (i === 0 || i === 2 || i === 4 || i === 6 || i === 8) {
+                firstString.children[i].classList.add("fret-number")
+            }
+        }
+    }
+
+    //add class to chord menu
+    let currentChordMenu = document.getElementById("chord-change");
+    currentChordMenu.classList.add("dropdown")
 
 
 

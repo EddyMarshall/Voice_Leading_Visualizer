@@ -14,6 +14,19 @@ class Guitar {
         this.scale = new Scale(key, this.accidentals);
         this.chords = this.buildChords(this.scale.notes)
         this.showNotes(this.scale.notes)
+        this.showUpperMenus();
+    }
+
+    showUpperMenus() {
+
+        let ddMenu = document.getElementById("key-change")
+        ddMenu.style.setProperty("--noteOpacity", 1)
+
+        let radios = document.getElementsByClassName("navradios")
+        radios.forEach(function (ele) {
+            ele.style.visibility = "visible"
+            
+        })
     }
 
     buildAccidentals() {
@@ -25,11 +38,36 @@ class Guitar {
     }
 
     createHeader(key) {
-        const header = document.createElement("h1")
-        header.innerHTML = `Key of ${key} Major`
-        header.classList.add("header")
-        this.dynamic.appendChild(header);
+        let header = document.getElementById("key-indicator")
+        if (header === null) {
+            header = document.createElement("h1")
+            header.id = "key-indicator"
+            header.innerHTML = `Key of ${key} Major`
+            header.classList.add("header")
+            this.dynamic.appendChild(header);
+        } else {
+            header.innerText = "";
+            header.innerText = `Key of ${key} Major`
+        }
+        
     }
+
+    createSecondaryHeader(num) {
+        let oldHeader = document.getElementsByTagName("h4")
+        if (oldHeader.length === 0) {
+            oldHeader = document.createElement("h4")
+            oldHeader.classList.add("header")
+            oldHeader.innerHTML = `${this.chords[num].name} ${this.chords[num].quality}`
+            this.dynamic.appendChild(oldHeader);
+        } else {
+            oldHeader[0].innerHTML = ""
+            oldHeader[0].innerHTML = `${this.chords[num].name} ${this.chords[num].quality}`
+        }
+        
+        
+    }
+
+
 
     setupGuitar(key) {
         const guitarDiv = document.createElement("div")
@@ -80,14 +118,15 @@ class Guitar {
         }
         const changeChordForm = document.createElement("select");
         changeChordForm.classList.add("chord-change")
+        changeChordForm.classList.add("dropdown")
         changeChordForm.id = "chord-change"
         changeChordForm.innerHTML += `<option>Choose Chord</option>`;
         for (let i = newArr.length - 1; i >= 0; i--) {
             let valueArr = ["'", `${i + 1}`, "'"];
-            let input = `<option value=${valueArr.join("")}>${newArr[i].name} ${newArr[i].quality}</option>`;
+            let input = `<option class="dropdown-choices" value=${valueArr.join("")}>${newArr[i].name} ${newArr[i].quality}</option>`;
             changeChordForm.innerHTML += input;
         }
-        const nav = document.getElementById("nav")
+        const nav = document.getElementById("lower-nav")
         nav.appendChild(changeChordForm)
         return newArr
     }
@@ -109,7 +148,10 @@ class Guitar {
         }
     }
 
+
+
     showChord(num) {
+        this.createSecondaryHeader(num - 1)
         let clearNotes = document.querySelectorAll(".note")
         clearNotes.forEach(function(ele) {
             ele.style.setProperty("--noteOpacity", 0)
