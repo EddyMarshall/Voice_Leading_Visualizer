@@ -14,6 +14,8 @@ class voiceLead {
 
 
 
+
+
     createOriginalChord(harmonicFunction, stringChoice, fretChoice) {
         this.guitar.createSecondaryHeader(harmonicFunction - 1)
         let alignedStrings = this.numberTheStrings(stringChoice.split(","));

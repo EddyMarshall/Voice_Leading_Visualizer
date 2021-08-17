@@ -157,30 +157,29 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
         parent.appendChild(stringOption)
         parent.style.visibility = "visible"
-        parent.addEventListener("change", adjustVoiceLeading.bind(content, ...[]))
+        parent.addEventListener("change", adjustVoiceLeading)
     }
 
-    function adjustVoiceLeading(content) {
-        document.getElementById("dynamic").innerHTML = ""
-        resetChordMenu();
-        let menu = document.getElementById("key-change");
-        let newKey = menu.options[menu.selectedIndex].value;
-        if (newKey === "") {
-            newKey = "C"
+    function adjustVoiceLeading() {
+        let menu = document.getElementById("chord-change");
+        let chord = menu.options[menu.selectedIndex].innerText;
+        if (chord === "Choose Chord") {
+            chord = `${content.guitar.key} Major`
         }
-        let chord = `${newKey} Major`
-
-        let fretRange = createDefaultChordRanges(chord, stringChoice)
-        debugger
         const stringChoices = document.getElementById("string-selector");
         const stringChoice = stringChoices.options[stringChoices.selectedIndex].value;
 
-        content = new voiceLead(newKey, 1, stringChoice, fretRange)
-        
-        addFretDots()
-        addChordChangeListener();
-        addVoiceLeadToggleEventListener();
+        let harmonicFunction = 0
+        for (let i = 0; i < content.guitar.chords.length; i++) {
+            if (chord === `${content.guitar.chords[i].name} ${content.guitar.chords[i].quality}`) {
+                harmonicFunction = i + 1
+            }
+        }
 
+        let fretRange = createDefaultChordRanges(chord, stringChoice)
+
+        content.createOriginalChord(harmonicFunction, stringChoice, fretRange)
+        
     }
 
 
@@ -274,7 +273,11 @@ document.addEventListener("DOMContentLoaded", ()=>{
                 return "3, 6"
             }
         } else if (chord === "Bb Minor" || chord === "A# Minor") {
-            return "6, 9"
+            if (stringChoice === "4,5,6") {
+                return "3,6"
+            } else {
+                return "6, 9"
+            }
         } else if (chord === "Bb Diminished" || chord === "A# Diminished") {
             if (stringChoice === "1,2,3") {
                 return "5, 6"
@@ -431,7 +434,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
             if (stringChoice === "1,2,3" || stringChoice === "2,3,4") {
                 return "4, 6"
             } else if (stringChoice === "3,4,5") {
-                return "4, 6"
+                return "6, 8"
             } else {
                 return "3, 4"
             }
