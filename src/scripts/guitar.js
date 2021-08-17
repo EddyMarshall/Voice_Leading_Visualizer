@@ -54,7 +54,7 @@ class Guitar {
 
     createSecondaryHeader(num) {
         let oldHeader = document.getElementsByTagName("h4")
-        if (oldHeader.length === 0) {
+        if (oldHeader.length === 0 || oldHeader === undefined) {
             oldHeader = document.createElement("h4")
             oldHeader.classList.add("header")
             oldHeader.innerHTML = `${this.chords[num].name} ${this.chords[num].quality}`

@@ -2,23 +2,17 @@ import Guitar from "./guitar"
 
 class voiceLead {
     constructor(key, oldHarmonicFunction, stringChoice = "1, 2, 3", range = "3, 8") {
+        this.key = key
         this.guitar = new Guitar(body, key, dynamic)
         this.clearOldTriad();
         this.names = ["E", "B", "G", "D", "A", "E"]
         this.createOriginalChord(1, stringChoice, range)
         this.oldHarmonicFunction = oldHarmonicFunction
-        // this.hideUpperMenus();
+        this.stringChoice = stringChoice;
+        // this.range = this.findStartRange(key)
     }
 
-    // hideUpperMenus(){
-    //     let ddMenu = document.getElementById("key-change")
-    //     ddMenu.style.setProperty("--noteOpacity", 0);
-        
-    //     let radios = document.getElementsByClassName("navradios")
-    //     radios.forEach(function (ele) {
-    //         ele.style.visibility = "hidden"
-    //     })
-    // }
+
 
     createOriginalChord(harmonicFunction, stringChoice, fretChoice) {
         this.guitar.createSecondaryHeader(harmonicFunction - 1)
@@ -109,7 +103,6 @@ class voiceLead {
     }
 
     showNextTriad(harmonicFunction, stringChoice) {
-
         this.guitar.createSecondaryHeader(harmonicFunction - 1)
         let alignedStrings = this.numberTheStrings(stringChoice.split(","));
         let originalElements = document.getElementsByClassName("showing")
@@ -167,10 +160,20 @@ class voiceLead {
                     if (alterer[1] === 3) {
                         let newIndex = alterer[2] - 1
                         let newTone = alterer[0].parentElement.children[newIndex]
+                        if (newTone === undefined) {
+                            debugger
+                            i += 50;
+                            break;
+                        }
                         newTone.classList.add("showing")
                         newTone.style.setProperty("--noteOpacity", 1)
                     } else {
                         let newTone = alterer[0].parentElement.children[alterer[2] - 2]
+                        if (newTone === undefined) {
+                            debugger
+                            i += 50;
+                            break;
+                        }
                         newTone.classList.add("showing")
                         newTone.style.setProperty("--noteOpacity", 1)
                     }
