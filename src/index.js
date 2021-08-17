@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
                 content = new Guitar(body, newKey, dynamic);
                 addFretDots()
             } else {      
-                content = new voiceLead("C", 1)
+                content = new voiceLead(newKey, 1)
                 addFretDots()
             }
             document.getElementsByName("show-toggle")[0].checked = true
@@ -114,12 +114,13 @@ document.addEventListener("DOMContentLoaded", ()=>{
         const currentMenu = document.getElementById("voice-leading-menus")
         if (button.innerText === "Enter Voice Leading Mode") {
             button.innerText = "Exit Voice Leading Mode"
-            content = new voiceLead("content.key", 1);
+            content = new voiceLead(content.key, 1);
             addFretDots();
             currentMenu.style.visibility = "visible"
             if (currentMenu.children.length === 0) {
                 makeVoiceLeadingMenus();
             }
+            currentMenu.firstElementChild.firstElementChild.selected = "selected"
         } else {
             button.innerText = "Enter Voice Leading Mode"
             currentMenu.style.visibility = "hidden"

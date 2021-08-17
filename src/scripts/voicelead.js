@@ -7,18 +7,18 @@ class voiceLead {
         this.names = ["E", "B", "G", "D", "A", "E"]
         this.createOriginalChord(1, stringChoice, range)
         this.oldHarmonicFunction = oldHarmonicFunction
-        this.hideUpperMenus();
+        // this.hideUpperMenus();
     }
 
-    hideUpperMenus(){
-        let ddMenu = document.getElementById("key-change")
-        ddMenu.style.setProperty("--noteOpacity", 0);
+    // hideUpperMenus(){
+    //     let ddMenu = document.getElementById("key-change")
+    //     ddMenu.style.setProperty("--noteOpacity", 0);
         
-        let radios = document.getElementsByClassName("navradios")
-        radios.forEach(function (ele) {
-            ele.style.visibility = "hidden"
-        })
-    }
+    //     let radios = document.getElementsByClassName("navradios")
+    //     radios.forEach(function (ele) {
+    //         ele.style.visibility = "hidden"
+    //     })
+    // }
 
     createOriginalChord(harmonicFunction, stringChoice, fretChoice) {
         this.guitar.createSecondaryHeader(harmonicFunction - 1)
@@ -109,68 +109,291 @@ class voiceLead {
     }
 
     showNextTriad(harmonicFunction, stringChoice) {
+
         this.guitar.createSecondaryHeader(harmonicFunction - 1)
         let alignedStrings = this.numberTheStrings(stringChoice.split(","));
         let originalElements = document.getElementsByClassName("showing")
-
         let startingIndices = this.findOriginalIndices(originalElements, alignedStrings);
         let harmonicDistance = this.findHarmonicDistance(harmonicFunction, this.oldHarmonicFunction)
-        this.oldHarmonicFunction = harmonicFunction;
         let oldChordTones = this.findOldTones();
-        let newChordTones = this.guitar.chords[harmonicFunction - 1].triad
-        let tonesThatNeedTochange = this.findDifferentTones(oldChordTones, newChordTones)
-        let usedStrings = this.narrowDownStrings(alignedStrings);
-        let stringIterator = 0;
-        while (stringIterator < usedStrings.length) {
-            let indexIterator = 0;
-            if (startingIndices.length > 0) {
-                while (indexIterator < startingIndices.length) {
-                    let checkIndex = startingIndices[stringIterator] + 0
-                    if (newChordTones.includes(usedStrings[stringIterator].children[checkIndex].id[2])) {
-                        indexIterator += 5
-                        stringIterator += 1
+        let oldQuality = this.guitar.chords[this.oldHarmonicFunction - 1].quality
+        let newQuality = this.guitar.chords[harmonicFunction - 1].quality
+        this.oldHarmonicFunction = harmonicFunction;
+        
+        let workingHash = this.hashBuilder(originalElements, startingIndices, oldChordTones)
+
+
+
+    
+
+        for (let i = 0; i < oldChordTones.triad.length; i++) {
+            let alterer = workingHash[oldChordTones.triad[i]]
+            if (harmonicDistance === 7) {
+//LOGIC FOR GOING UP A 7TH
+                if (oldQuality === "Major" && newQuality === "Diminished") {
+                    if (alterer[1] === 1) {
+                        let newIndex = alterer[2] - 1
+                        let newTone = alterer[0].parentElement.children[newIndex]
+                        newTone.classList.add("showing")
+                        newTone.style.setProperty("--noteOpacity", 1)
                     } else {
-                        if (harmonicDistance % 2 === 0) {
-                            if (newChordTones.includes(usedStrings[stringIterator].children[checkIndex + 1].id[2])) {
-                                usedStrings[stringIterator].children[checkIndex + 1].style.setProperty("--noteOpacity", 1);
-                                usedStrings[stringIterator].children[checkIndex + 1].classList.add("showing")
-                            } else {
-                                usedStrings[stringIterator].children[checkIndex + 2].style.setProperty("--noteOpacity", 1);
-                                usedStrings[stringIterator].children[checkIndex + 2].classList.add("showing")
-                            }
-                            usedStrings[stringIterator].children[checkIndex].style.setProperty("--noteOpacity", 0);
-                            usedStrings[stringIterator].children[checkIndex].classList.remove("showing")
-                            
-                        } else {
-                            if (checkIndex - 1 > -1) {
-                                if (newChordTones.includes(usedStrings[stringIterator].children[checkIndex - 1].id[2]) &&
-                                    usedStrings[stringIterator].children[checkIndex - 1].id.includes("#") === false) {
-                                    usedStrings[stringIterator].children[checkIndex - 1].style.setProperty("--noteOpacity", 1);
-                                    usedStrings[stringIterator].children[checkIndex - 1].classList.add("showing")
-                                } else {
-                                    usedStrings[stringIterator].children[checkIndex - 2].style.setProperty("--noteOpacity", 1);
-                                    usedStrings[stringIterator].children[checkIndex - 2].classList.add("showing")
-                                }
-                                usedStrings[stringIterator].children[checkIndex].style.setProperty("--noteOpacity", 0);
-                                usedStrings[stringIterator].children[checkIndex].classList.remove("showing")
-                            } else {
-                                console.log("reset")
-                                indexIterator += 50
-                                stringIterator += 1
-                            }
-                        }
-                        indexIterator += 1
-                        stringIterator += 1
-                        if (stringIterator === 3) {
-                            indexIterator += 50
-                        }
+                        let newTone = alterer[0].parentElement.children[alterer[2] - 2]
+                        newTone.classList.add("showing")
+                        newTone.style.setProperty("--noteOpacity", 1)
+                    }
+                } else if (oldQuality === "Diminished" && newQuality === "Minor") {
+                    if (alterer[1] === 5) {
+                        let newIndex = alterer[2] - 1
+                        let newTone = alterer[0].parentElement.children[newIndex]
+                        newTone.classList.add("showing")
+                        newTone.style.setProperty("--noteOpacity", 1)
+                    } else {
+                        let newTone = alterer[0].parentElement.children[alterer[2] - 2]
+                        newTone.classList.add("showing")
+                        newTone.style.setProperty("--noteOpacity", 1)
+                    }
+                } else if (oldQuality === "Major" && newQuality === "Minor") {
+                    if (alterer[1] === 5 || alterer[1] === 1) {
+                        let newIndex = alterer[2] - 1
+                        let newTone = alterer[0].parentElement.children[newIndex]
+                        newTone.classList.add("showing")
+                        newTone.style.setProperty("--noteOpacity", 1)
+                    } else {
+                        let newTone = alterer[0].parentElement.children[alterer[2] - 2]
+                        newTone.classList.add("showing")
+                        newTone.style.setProperty("--noteOpacity", 1)
+                    }
+                } else if (oldQuality === "Minor" && newQuality === "Major") {
+                    if (alterer[1] === 3) {
+                        let newIndex = alterer[2] - 1
+                        let newTone = alterer[0].parentElement.children[newIndex]
+                        newTone.classList.add("showing")
+                        newTone.style.setProperty("--noteOpacity", 1)
+                    } else {
+                        let newTone = alterer[0].parentElement.children[alterer[2] - 2]
+                        newTone.classList.add("showing")
+                        newTone.style.setProperty("--noteOpacity", 1)
+                    }
+                } else if ((oldQuality === "Minor" && newQuality === "Minor") ||
+                    (oldQuality === "Major" && newQuality === "Major")) {
+                        let newTone = alterer[0].parentElement.children[alterer[2] - 2]
+                        newTone.classList.add("showing")
+                        newTone.style.setProperty("--noteOpacity", 1)
+                    }
+                alterer[0].classList.remove("showing")
+                alterer[0].style.setProperty("--noteOpacity", 0)
+            } else if (harmonicDistance === 6) {
+
+//logic for going up a 6th
+                if ((oldQuality === "Major" && newQuality === "Minor") ||
+                    (oldQuality === "Minor" && newQuality === "Diminished") ||
+                    (oldQuality === "Diminished" && newQuality === "Major")) {
+                    if (alterer[1] === 5) {
+                        let newIndex = alterer[2] + 2
+                        let newTone = alterer[0].parentElement.children[newIndex]
+                        newTone.classList.add("showing")
+                        newTone.style.setProperty("--noteOpacity", 1)
+                        alterer[0].classList.remove("showing")
+                        alterer[0].style.setProperty("--noteOpacity", 0)
+                    } 
+                } else {
+                    if (alterer[1] === 5) {
+                        let newTone = alterer[0].parentElement.children[alterer[2] + 1]
+                        newTone.classList.add("showing")
+                        newTone.style.setProperty("--noteOpacity", 1)
+                        alterer[0].classList.remove("showing")
+                        alterer[0].style.setProperty("--noteOpacity", 0)
                     }
                 }
+            } else if (harmonicDistance === 5) {
 
+                //logic for going up a 5th
+                if (oldQuality === "Major" && newQuality === "Major") {
+                    if (alterer[1] === 1) {
+                        let newIndex = alterer[2] - 1
+                        let newTone = alterer[0].parentElement.children[newIndex]
+                        newTone.classList.add("showing")
+                        newTone.style.setProperty("--noteOpacity", 1)
+                        alterer[0].classList.remove("showing")
+                        alterer[0].style.setProperty("--noteOpacity", 0)
+                    } else if (alterer[1] === 3) {
+                        let newIndex = alterer[2] - 2
+                        let newTone = alterer[0].parentElement.children[newIndex]
+                        newTone.classList.add("showing")
+                        newTone.style.setProperty("--noteOpacity", 1)
+                        alterer[0].classList.remove("showing")
+                        alterer[0].style.setProperty("--noteOpacity", 0)
+                    }
+                } else if (oldQuality === "Minor" && newQuality === "Minor") {
+                    if (alterer[1] === 1) {
+                        let newIndex = alterer[2] - 2
+                        let newTone = alterer[0].parentElement.children[newIndex]
+                        newTone.classList.add("showing")
+                        newTone.style.setProperty("--noteOpacity", 1)
+                        alterer[0].classList.remove("showing")
+                        alterer[0].style.setProperty("--noteOpacity", 0)
+                    } else if (alterer[1] === 3) {
+                        let newIndex = alterer[2] - 1
+                        let newTone = alterer[0].parentElement.children[newIndex]
+                        newTone.classList.add("showing")
+                        newTone.style.setProperty("--noteOpacity", 1)
+                        alterer[0].classList.remove("showing")
+                        alterer[0].style.setProperty("--noteOpacity", 0)
+                    }
+                } else {
+                    if (alterer[1] === 3 || alterer[1] === 1) {
+                        let newIndex = alterer[2] - 2
+                        let newTone = alterer[0].parentElement.children[newIndex]
+                        newTone.classList.add("showing")
+                        newTone.style.setProperty("--noteOpacity", 1)
+                        alterer[0].classList.remove("showing")
+                        alterer[0].style.setProperty("--noteOpacity", 0)
+                    }
+                }
+            } else if (harmonicDistance === 4) {
+
+                //logic for going up a 4th
+                if (oldQuality === "Major" && newQuality === "Major") {
+                    if (alterer[1] === 3) {
+                        let newIndex = alterer[2] + 1
+                        let newTone = alterer[0].parentElement.children[newIndex]
+                        newTone.classList.add("showing")
+                        newTone.style.setProperty("--noteOpacity", 1)
+                        alterer[0].classList.remove("showing")
+                        alterer[0].style.setProperty("--noteOpacity", 0)
+                    } else if (alterer[1] === 5) {
+                        let newIndex = alterer[2] + 2
+                        let newTone = alterer[0].parentElement.children[newIndex]
+                        newTone.classList.add("showing")
+                        newTone.style.setProperty("--noteOpacity", 1)
+                        alterer[0].classList.remove("showing")
+                        alterer[0].style.setProperty("--noteOpacity", 0)
+                    }
+                } else if (oldQuality === "Minor" && newQuality === "Minor") {
+                    if (alterer[1] === 3) {
+                        let newIndex = alterer[2] + 2
+                        let newTone = alterer[0].parentElement.children[newIndex]
+                        newTone.classList.add("showing")
+                        newTone.style.setProperty("--noteOpacity", 1)
+                        alterer[0].classList.remove("showing")
+                        alterer[0].style.setProperty("--noteOpacity", 0)
+                    } else if (alterer[1] === 5) {
+                        let newIndex = alterer[2] + 1
+                        let newTone = alterer[0].parentElement.children[newIndex]
+                        newTone.classList.add("showing")
+                        newTone.style.setProperty("--noteOpacity", 1)
+                        alterer[0].classList.remove("showing")
+                        alterer[0].style.setProperty("--noteOpacity", 0)
+                    }
+                } else {
+                    if (alterer[1] === 3 || alterer[1] === 5) {
+                        let newIndex = alterer[2] + 2
+                        let newTone = alterer[0].parentElement.children[newIndex]
+                        newTone.classList.add("showing")
+                        newTone.style.setProperty("--noteOpacity", 1)
+                        alterer[0].classList.remove("showing")
+                        alterer[0].style.setProperty("--noteOpacity", 0)
+                    }
+                }
+            } else if (harmonicDistance === 3) {
+//LOGIC FOR GOING UP A 3RD
+                if ((oldQuality === "Minor" && newQuality === "Major") ||
+                    (oldQuality === "Major" && newQuality === "Diminished") ||
+                    (oldQuality === "Diminished" && newQuality === "Minor")) {
+                        if (alterer[1] === 1) {
+                            let newIndex = alterer[2] - 2
+                            let newTone = alterer[0].parentElement.children[newIndex]
+                            newTone.classList.add("showing")
+                            newTone.style.setProperty("--noteOpacity", 1)
+                            alterer[0].classList.remove("showing")
+                            alterer[0].style.setProperty("--noteOpacity", 0)
+                        } 
+                } else {
+                    if (alterer[1] === 1) {
+                        let newTone = alterer[0].parentElement.children[alterer[2] - 1]
+                        newTone.classList.add("showing")
+                        newTone.style.setProperty("--noteOpacity", 1)
+                        alterer[0].classList.remove("showing")
+                        alterer[0].style.setProperty("--noteOpacity", 0)
+                    }
+                }
             } else {
-                break;
+//LOGIC FOR GOING UP A 2ND
+                if (oldQuality === "Diminished" && newQuality === "Major") {
+                    if (alterer[1] === 1) {
+                        let newIndex = alterer[2] + 1
+                        let newTone = alterer[0].parentElement.children[newIndex]
+                        newTone.classList.add("showing")
+                        newTone.style.setProperty("--noteOpacity", 1)
+                    } else {
+                        let newTone = alterer[0].parentElement.children[alterer[2] + 2]
+                        newTone.classList.add("showing")
+                        newTone.style.setProperty("--noteOpacity", 1)
+                    }
+                } else if (oldQuality === "Minor" && newQuality === "Diminished") {
+                    if (alterer[1] === 5) {
+                        let newIndex = alterer[2] + 1
+                        let newTone = alterer[0].parentElement.children[newIndex]
+                        newTone.classList.add("showing")
+                        newTone.style.setProperty("--noteOpacity", 1)
+                    } else {
+                        let newTone = alterer[0].parentElement.children[alterer[2] + 2]
+                        newTone.classList.add("showing")
+                        newTone.style.setProperty("--noteOpacity", 1)
+                    }
+                } else if (oldQuality === "Minor" && newQuality === "Major") {
+                    if (alterer[1] === 5 || alterer[1] === 1) {
+                        let newIndex = alterer[2] + 1
+                        let newTone = alterer[0].parentElement.children[newIndex]
+                        newTone.classList.add("showing")
+                        newTone.style.setProperty("--noteOpacity", 1)
+                    } else {
+                        let newTone = alterer[0].parentElement.children[alterer[2] + 2]
+                        newTone.classList.add("showing")
+                        newTone.style.setProperty("--noteOpacity", 1)
+                    }
+                } else if (oldQuality === "Major" && newQuality === "Minor") {
+                    if (alterer[1] === 3) {
+                        let newIndex = alterer[2] + 1
+                        let newTone = alterer[0].parentElement.children[newIndex]
+                        newTone.classList.add("showing")
+                        newTone.style.setProperty("--noteOpacity", 1)
+                    } else {
+                        let newTone = alterer[0].parentElement.children[alterer[2] + 2]
+                        newTone.classList.add("showing")
+                        newTone.style.setProperty("--noteOpacity", 1)
+                    }
+                } else if ((oldQuality === "Minor" && newQuality === "Minor") ||
+                    (oldQuality === "Major" && newQuality === "Major")) {
+                    let newTone = alterer[0].parentElement.children[alterer[2] + 2]
+                    newTone.classList.add("showing")
+                    newTone.style.setProperty("--noteOpacity", 1)
+                }
+                alterer[0].classList.remove("showing")
+                alterer[0].style.setProperty("--noteOpacity", 0)
+            }
+
+        }
+    }
+
+    hashBuilder(originalElements, startingIndicies, oldChordTones) {
+        let hash = new Map()
+
+        for (let i = 0; i < oldChordTones.triad.length; i++) {
+            hash[oldChordTones.triad[i]] = [i * 2 + 1]
+        }
+
+        for (let i = 0; i < originalElements.length; i++) {
+            let ele = originalElements[i].id.split("").slice(2);
+            for (let j = 0; j < oldChordTones.triad.length; j++) {
+
+                if (ele.includes(oldChordTones.triad[j][0])) {
+                    hash[oldChordTones.triad[j]].unshift(originalElements[i])
+                    hash[oldChordTones.triad[j]].push(startingIndicies[i])
+                }
             }
         }
+        return hash
     }
 
     findHarmonicDistance(harmonicFunction, oldHarmonicFunction) {
