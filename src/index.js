@@ -225,7 +225,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
             radios[0].style.setProperty("color", "white")
             radios[1].style.setProperty("color", "white")
             darkModeButton.innerText = "Light Mode"
-            body.style.setProperty("--bodyColor", "MidnightBlue")
+            body.style.setProperty("--bodyColor", "black")
 
             if (bottomHeader.length != 0) {
                 bottomHeader[0].style.setProperty("color", "white")
