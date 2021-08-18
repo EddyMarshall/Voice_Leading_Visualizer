@@ -65,6 +65,8 @@ ________________________________________________________________________________
 __________________________________________________________________________________________
 ### Bonus Features:
 
+* Play along section in which the user specifies a tempo and a harmonic cycle, then plays along the changing visualization with a click track.
+
 * This will eventually be expanded to display sheet music as well as a guitar visualization so that it can be used by musicians on other chordal instruments such as the piano.
 
 * Video demonstrations of voice leading in action will be a great additional motivator for students.

@@ -92,19 +92,14 @@ class Guitar {
             document.getElementById(`${a.innerText.slice(0, 2)}${a.innerText.slice(3)}.mp3`).play();
         } else if (a.innerText.split("").includes("#")) {
             if (a.innerText[0] === "A") {
-                debugger
                 document.getElementById(`Bb${a.innerText.slice(3)}.mp3`).play();
             } else if (a.innerText[0] === "C") {
-                debugger
                 document.getElementById(`Db${a.innerText.slice(3)}.mp3`).play();
             } else if (a.innerText[0] === "D") {
-                debugger
                 document.getElementById(`Eb${a.innerText.slice(3)}.mp3`).play();
             } else if (a.innerText[0] === "F") {
-                debugger
                 document.getElementById(`Gb${a.innerText.slice(3)}.mp3`).play();
             } else if (a.innerText[0] === "G") {
-                debugger
                 document.getElementById(`Ab${a.innerText.slice(3)}.mp3`).play();
             }
         }
