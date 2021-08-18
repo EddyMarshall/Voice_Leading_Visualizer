@@ -35,6 +35,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
                 const stringChoices = document.getElementById("string-selector");
                 const stringChoice = stringChoices.options[stringChoices.selectedIndex].value;
                 let fretRange = createDefaultChordRanges(`${newKey} Major`, stringChoice)
+                
                 content = new voiceLead(newKey, 1, stringChoice, fretRange)
                 addFretDots()
             }
@@ -116,6 +117,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
         const radio = document.getElementsByClassName("navradios")
         document.getElementById("dynamic").innerHTML = ""
         const currentMenu = document.getElementById("voice-leading-menus")
+        
         if (button.innerText === "Enter Voice Leading Mode") {
             button.innerText = "Exit Voice Leading Mode"
             content = new voiceLead(content.key, 1);
@@ -151,19 +153,41 @@ document.addEventListener("DOMContentLoaded", ()=>{
             stringOption.appendChild(choice)
         }
 
+        let cycleParent = document.getElementById("cycle-selector-menus");
+        const cycleSelector = document.createElement("select")
+        cycleSelector.classList.add("VL-menu")
+        cycleSelector.id = "harmonic-distance"
+
+        for (let i = 1; i < 7; i++) {
+            let choice = document.createElement("option")
+            choice.value = i
+            if (i === 1) {
+                choice.innerText = "Seconds"
+            } else if (i === 2) {
+                choice.innerText = "Thirds"
+            } else if (i === 3) {
+                choice.innerText = "Fourths"
+            } else if (i === 4) {
+                choice.innerText = "Fifths"
+            } else if (i === 5) {
+                choice.innerText = "Sixths"
+            } else if (i === 6) {
+                choice.innerText = "Sevenths"
+            }
+            cycleSelector.appendChild(choice)
+        }
 
 
         parent.appendChild(stringOption)
+        cycleParent.appendChild(cycleSelector)
         parent.style.visibility = "visible"
         parent.addEventListener("change", adjustVoiceLeading)
     }
 
     function adjustVoiceLeading() {
-        let menu = document.getElementById("chord-change");
-        let chord = menu.options[menu.selectedIndex].innerText;
-        if (chord === "Choose Chord") {
-            chord = `${content.guitar.key} Major`
-        }
+        let chord = document.getElementsByTagName("h4")[0].innerText
+
+
         const stringChoices = document.getElementById("string-selector");
         const stringChoice = stringChoices.options[stringChoices.selectedIndex].value;
 
@@ -247,6 +271,39 @@ document.addEventListener("DOMContentLoaded", ()=>{
         }
     }
 
+    //add event listeners to cycling designator
+    document.addEventListener('keydown', (e) => {
+        const stringChoices = document.getElementById("string-selector");
+        const stringChoice = stringChoices.options[stringChoices.selectedIndex].value;
+        const a = document.getElementById("harmonic-distance")
+        let harmonicFunction = (parseInt(content.oldHarmonicFunction) + parseInt(a.options[a.selectedIndex].value));
+        if (harmonicFunction === 0 || harmonicFunction === 8) {
+            harmonicFunction = 1
+        } else if (harmonicFunction === 9) {
+            harmonicFunction = 2
+        } else if (harmonicFunction === 10) {
+            harmonicFunction = 3
+        } else if (harmonicFunction === 11) {
+            harmonicFunction = 4
+        } else if (harmonicFunction === 12) {
+            harmonicFunction = 5
+        } else if (harmonicFunction === 13) {
+            harmonicFunction = 6
+        } else if (harmonicFunction === 14) {
+            harmonicFunction = 7
+        }
+        if (document.getElementById("voice-lead-toggle").innerText === "Exit Voice Leading Mode") {
+            if (e.key === " ") {
+                content.showNextTriad(harmonicFunction, stringChoice)
+            }
+        }
+    });
+
+
+    
+ 
+
+
 
 
 
@@ -310,9 +367,11 @@ document.addEventListener("DOMContentLoaded", ()=>{
                 return "4, 7"
             }
         } else if (chord === "Bb Major" || chord === "A# Major") {
+            
             if (stringChoice === "1,2,3" || stringChoice === "2,3,4" || stringChoice === "3,4,5") {
                 return "6, 8"
             } else {
+                
                 return "3, 6"
             }
         } else if (chord === "Bb Minor" || chord === "A# Minor") {

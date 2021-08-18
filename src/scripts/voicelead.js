@@ -1,4 +1,5 @@
 import Guitar from "./guitar"
+import Cycle from "./cycle"
 
 class voiceLead {
     constructor(key, oldHarmonicFunction, stringChoice = "1, 2, 3", range = "3, 8") {
@@ -7,14 +8,15 @@ class voiceLead {
         this.guitar = new Guitar(body, key, dynamic)
         this.clearOldTriad();
         this.names = ["E", "B", "G", "D", "A", "E"]
+        this.stringChoice = stringChoice;
         this.adjustkey();
         this.createOriginalChord(1, stringChoice, this.range)
         this.oldHarmonicFunction = oldHarmonicFunction
-        this.stringChoice = stringChoice;
+        
     }
 
     adjustkey(){
-        if (this.key === "B" || this.key === "Bb" || this.key === "Gb" || this.key === "D") {
+        if (this.key === "B" || (this.key === "Bb" && this.stringChoice === "4,5,6") || this.key === "Gb" || this.key === "D") {
             this.range = "5, 8"
         }
     }
@@ -23,7 +25,6 @@ class voiceLead {
 
 
     createOriginalChord(harmonicFunction, stringChoice, fretChoice) {
-        
         this.guitar.createSecondaryHeader(harmonicFunction - 1)
         let alignedStrings = this.numberTheStrings(stringChoice.split(","));
         let usedString = [];

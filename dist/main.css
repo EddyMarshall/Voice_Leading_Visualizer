@@ -93,10 +93,6 @@ body {
   justify-content: space-around;
 }
 
-#voice-leading-menus {
-  position: absolute;
-}
-
 .showing {
   opacity: 1;
 }
