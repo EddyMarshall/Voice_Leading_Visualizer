@@ -6,6 +6,43 @@
   --menuVisibility: visible;
   --navdisplay: flex;
   --bodyColor: aliceblue;
+  --tutorial-image: none;
+}
+
+h2 {
+  float: left;
+  margin-right: 15px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-weight: 500;
+  font-size: large;
+  color: black;
+  vertical-align: middle;
+}
+
+.top-navbar {
+  background-color: slateblue;
+}
+
+#title {
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
+ul {
+  list-style-type: none;
+  overflow: hidden;
+}
+
+.page-name {
+  font-size: x-large;
+}
+
+a {
+  color: hotpink;
+}
+
+.info-links {
+  float: right;
 }
 
 h1 {
@@ -88,9 +125,15 @@ body {
 }
 
 .secondary-menus {
-  margin-top: 20px;
+  margin-top: 10px;
   display: flex;
   justify-content: space-around;
+}
+
+.dropdown, .VL-menu, .button, .dark-mode-toggle {
+  border-radius: 10px;
+  border: 1px solid #AAAAAA;
+  font-size: x-large;
 }
 
 .showing {
@@ -119,4 +162,39 @@ h4 {
 
 .navradios {
   display: var(--navdisplay);
+}
+
+#tutorial:hover {
+  cursor: pointer;
+}
+
+#tutorial-image {
+  display: var(--tutorial-image);
+  left: 50%;
+  position: absolute;
+  height: 85%;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 4;
+}
+
+#key-indicator {
+  margin-bottom: -6%;
+}
+
+label {
+  font-size: x-large;
+}
+
+#backstory {
+  margin-left: 10%;
+  font-size: x-large;
+}
+
+.diatribe {
+  text-indent: 50px;
+  margin-left: 15%;
+  margin-right: 15%;
+  font-size: large;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }

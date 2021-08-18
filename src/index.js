@@ -3,7 +3,20 @@ import voiceLead from "./scripts/voicelead"
 
 
 
+
 document.addEventListener("DOMContentLoaded", ()=>{
+
+    const helpButton = document.getElementById("tutorial")
+    
+    helpButton.addEventListener("mouseover", () => {
+        const tutorialInfo = document.getElementById("tutorial-image")
+        tutorialInfo.style.setProperty("--tutorial-image", "block")
+    })
+
+    helpButton.addEventListener("mouseout", () => {
+        const tutorialInfo = document.getElementById("tutorial-image")
+        tutorialInfo.style.setProperty("--tutorial-image", "none")
+    })
 
     //initializes with default setting
     const body = document.getElementById("body")
@@ -116,6 +129,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
         const radio = document.getElementsByClassName("navradios")
         document.getElementById("dynamic").innerHTML = ""
         const currentMenu = document.getElementById("voice-leading-menus")
+        const cyclerMenu = document.getElementById("cycle-selector-menus")
         const currentRange = createDefaultChordRanges(`${content.key} Major`, "1, 2, 3")
         
         if (button.innerText === "Enter Voice Leading Mode") {
@@ -123,6 +137,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
             content = new voiceLead(content.key, 1, "1, 2, 3", currentRange);
             addFretDots();
             currentMenu.style.visibility = "visible"
+            cyclerMenu.style.visibility = "visible"
             if (currentMenu.children.length === 0) {
                 makeVoiceLeadingMenus();
             }
@@ -132,6 +147,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
             radio[0].style.setProperty("--navdisplay", "flex")
             button.innerText = "Enter Voice Leading Mode"
             currentMenu.style.visibility = "hidden"
+            cyclerMenu.style.visibility = "hidden"
             content = new Guitar(body, content.guitar.key, dynamic);
             addFretDots();
         }
@@ -245,7 +261,6 @@ document.addEventListener("DOMContentLoaded", ()=>{
         
         if (darkModeButton.innerText === "Dark Mode") {
             topHeader[0].style.setProperty("color", "white")
-            topHeader[1].style.setProperty("color", "white")
             radios[0].style.setProperty("color", "white")
             radios[1].style.setProperty("color", "white")
             darkModeButton.innerText = "Light Mode"
@@ -258,7 +273,6 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
         } else {
             topHeader[0].style.setProperty("color", "black")
-            topHeader[1].style.setProperty("color", "black")
             radios[0].style.setProperty("color", "black")
             radios[1].style.setProperty("color", "black")
 
@@ -273,6 +287,9 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
     //add event listeners to cycling designator
     document.addEventListener('keydown', (e) => {
+        if (document.getElementById("voice-lead-toggle").innerText === "Enter Voice Leading Mode") {
+            return
+        }
         const stringChoices = document.getElementById("string-selector");
         const stringChoice = stringChoices.options[stringChoices.selectedIndex].value;
         const a = document.getElementById("harmonic-distance")
@@ -302,9 +319,6 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
     
  
-
-
-
 
 
 
