@@ -63,9 +63,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
         let menu = document.getElementById("chord-change");
         let harmonicFunction = menu.options[menu.selectedIndex].value;
         if (harmonicFunction === "Choose Chord") {
-            content.showChord(1)
-            menu.options[menu.selectedIndex].innerHTML = `${content.chords[0].name} ${content.chords[0].quality}`
-            menu.options[menu.selectedIndex].value = `${content.chords[0].name} ${content.chords[0].quality}`
+            harmonicFunction = 1
         }
         if (button.innerText === "Exit Voice Leading Mode") {
             const stringChoices = document.getElementById("string-selector");
@@ -207,6 +205,51 @@ document.addEventListener("DOMContentLoaded", ()=>{
     //add class to chord menu
     let currentChordMenu = document.getElementById("chord-change");
     currentChordMenu.classList.add("dropdown")
+
+
+    //add event listener to darkMode
+    const darkModeButton = document.getElementById("dark-Mode-toggle");
+    darkModeButton.addEventListener("click", darkModeToggle)
+    
+    function darkModeToggle() {
+        const darkModeButton = document.getElementById("dark-Mode-toggle");
+        const topHeader = document.getElementsByTagName("h1")
+        const bottomHeader = document.getElementsByTagName("h4")
+        const body = document.getElementById("body");
+        const radios = document.getElementsByTagName("label")
+
+        
+        if (darkModeButton.innerText === "Dark Mode") {
+            topHeader[0].style.setProperty("color", "white")
+            topHeader[1].style.setProperty("color", "white")
+            radios[0].style.setProperty("color", "white")
+            radios[1].style.setProperty("color", "white")
+            darkModeButton.innerText = "Light Mode"
+            body.style.setProperty("--bodyColor", "MidnightBlue")
+
+            if (bottomHeader.length != 0) {
+                bottomHeader[0].style.setProperty("color", "white")
+            }
+        
+
+        } else {
+            topHeader[0].style.setProperty("color", "black")
+            topHeader[1].style.setProperty("color", "black")
+            radios[0].style.setProperty("color", "black")
+            radios[1].style.setProperty("color", "black")
+
+            darkModeButton.innerText = "Dark Mode"
+            body.style.setProperty("--bodyColor", "aliceblue")
+
+            if (bottomHeader.length != 0) {
+                bottomHeader[0].style.setProperty("color", "black")
+            }
+        }
+    }
+
+
+
+
 
     function createDefaultChordRanges(chord, stringChoice) {
         if (chord === "C Major" || chord === "G Major" || chord === "E Minor") {

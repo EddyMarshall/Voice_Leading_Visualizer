@@ -49,19 +49,29 @@ class Guitar {
             header.innerText = "";
             header.innerText = `Key of ${key} Major`
         }
-        
+        const darkModeButton = document.getElementById("dark-Mode-toggle");
+        if (darkModeButton.innerText === "Light Mode") {
+            header.style.setProperty("color", "white")
+        }
     }
 
     createSecondaryHeader(num) {
         let oldHeader = document.getElementsByTagName("h4")
+        const darkModeButton = document.getElementById("dark-Mode-toggle");
         if (oldHeader.length === 0 || oldHeader === undefined) {
             oldHeader = document.createElement("h4")
             oldHeader.classList.add("header")
             oldHeader.innerHTML = `${this.chords[num].name} ${this.chords[num].quality}`
             this.dynamic.appendChild(oldHeader);
+            if (darkModeButton.innerText === "Light Mode") {
+                oldHeader.style.setProperty("color", "white")
+            }
         } else {
             oldHeader[0].innerHTML = ""
             oldHeader[0].innerHTML = `${this.chords[num].name} ${this.chords[num].quality}`
+            if (darkModeButton.innerText === "Light Mode") {
+                oldHeader[0].style.setProperty("color", "white")
+            }
         }
         
         
