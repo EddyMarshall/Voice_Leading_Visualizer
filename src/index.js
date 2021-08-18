@@ -117,10 +117,11 @@ document.addEventListener("DOMContentLoaded", ()=>{
         const radio = document.getElementsByClassName("navradios")
         document.getElementById("dynamic").innerHTML = ""
         const currentMenu = document.getElementById("voice-leading-menus")
+        const currentRange = createDefaultChordRanges(`${content.key} Major`, "1, 2, 3")
         
         if (button.innerText === "Enter Voice Leading Mode") {
             button.innerText = "Exit Voice Leading Mode"
-            content = new voiceLead(content.key, 1);
+            content = new voiceLead(content.key, 1, "1, 2, 3", currentRange);
             addFretDots();
             currentMenu.style.visibility = "visible"
             if (currentMenu.children.length === 0) {
@@ -324,7 +325,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
                 return "5, 7"
             }
         } else if (chord === "F Major") {
-            if (stringChoice === "1,2,3" || stringChoice === "2,3,4") {
+            if (stringChoice === "1,2,3" || stringChoice === "1, 2, 3" || stringChoice === "2,3,4") {
                 return "5, 7"
             } else if (stringChoice === "3,4,5") {
                 return "5, 8"
@@ -368,10 +369,11 @@ document.addEventListener("DOMContentLoaded", ()=>{
             }
         } else if (chord === "Bb Major" || chord === "A# Major") {
             
-            if (stringChoice === "1,2,3" || stringChoice === "2,3,4" || stringChoice === "3,4,5") {
+            if (stringChoice === "1,2,3" || stringChoice === "1, 2, 3" || stringChoice === "2,3,4" || stringChoice === "3,4,5") {
+
                 return "6, 8"
             } else {
-                
+
                 return "3, 6"
             }
         } else if (chord === "Bb Minor" || chord === "A# Minor") {
@@ -389,7 +391,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
                 return "7, 9"
             }
         } else if (chord === "A Major") {
-            if (stringChoice === "1,2,3" || stringChoice === "2,3,4" || stringChoice === "3,4,5") {
+            if (stringChoice === "1,2,3" || stringChoice === "1, 2, 3" || stringChoice === "2,3,4" || stringChoice === "3,4,5") {
                 return "5, 7"
             } else {
                 return "2, 5"
@@ -403,7 +405,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
                 return "6, 8"
             }
         } else if (chord === "Ab Major" || chord === "G# Major") {
-            if (stringChoice === "1,2,3" || stringChoice === "2,3,4" || stringChoice === "3,4,5") {
+            if (stringChoice === "1,2,3" || stringChoice === "1, 2, 3"|| stringChoice === "2,3,4" || stringChoice === "3,4,5") {
                 return "4, 6"
             } else {
                 return "6, 8"
@@ -477,7 +479,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
                 return "6, 8"
             }
         } else if (chord === "E Major") {
-            if (stringChoice === "1,2,3" || stringChoice === "2,3,4") {
+            if (stringChoice === "1,2,3" || stringChoice === "1, 2, 3"|| stringChoice === "2,3,4") {
                 return "4, 6"
             } else if (stringChoice === "3,4,5") {
                 return "4, 7"
@@ -493,7 +495,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
                 return "5, 7"
             }
         } else if (chord === "Eb Major" || chord === "D# Major") {
-            if (stringChoice === "1,2,3" || stringChoice === "2,3,4") {
+            if (stringChoice === "1,2,3" || stringChoice === "1, 2, 3"|| stringChoice === "2,3,4") {
                 return "6, 8"
             } else if (stringChoice === "3,4,5") {
                 return "3, 6"
@@ -533,7 +535,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
                 return "3, 5"
             }
         } else if (chord === "Db Major" || chord === "C# Major") {
-            if (stringChoice === "1,2,3" || stringChoice === "2,3,4") {
+            if (stringChoice === "1,2,3" || stringChoice === "1, 2, 3"|| stringChoice === "2,3,4") {
                 return "4, 6"
             } else if (stringChoice === "3,4,5") {
                 return "6, 8"
