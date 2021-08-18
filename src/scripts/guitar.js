@@ -61,6 +61,7 @@ class Guitar {
         if (oldHeader.length === 0 || oldHeader === undefined) {
             oldHeader = document.createElement("h4")
             oldHeader.classList.add("header")
+            oldHeader.id = "audio-button"
             oldHeader.innerHTML = `${this.chords[num].name} ${this.chords[num].quality}`
             this.dynamic.appendChild(oldHeader);
             if (darkModeButton.innerText === "Light Mode") {
@@ -73,8 +74,40 @@ class Guitar {
                 oldHeader[0].style.setProperty("color", "white")
             }
         }
+        this.addEventListenerToAudioButton();
         
-        
+    }
+
+    //AUDIO FILE LOGIC HERE
+    addEventListenerToAudioButton() {
+        let a = document.getElementById("audio-button")
+        a.addEventListener("click", this.playAudio)
+    }   
+
+    playAudio() {
+        let a = document.getElementById("audio-button")
+        if (!a.innerText.split("").includes("#") && !a.innerText.split("").includes("b")) {
+            document.getElementById(`${a.innerText[0]}${a.innerText.slice(2)}.mp3`).play();
+        } else if (a.innerText.split("").includes("b")) {
+            document.getElementById(`${a.innerText.slice(0, 2)}${a.innerText.slice(3)}.mp3`).play();
+        } else if (a.innerText.split("").includes("#")) {
+            if (a.innerText[0] === "A") {
+                debugger
+                document.getElementById(`Bb${a.innerText.slice(3)}.mp3`).play();
+            } else if (a.innerText[0] === "C") {
+                debugger
+                document.getElementById(`Db${a.innerText.slice(3)}.mp3`).play();
+            } else if (a.innerText[0] === "D") {
+                debugger
+                document.getElementById(`Eb${a.innerText.slice(3)}.mp3`).play();
+            } else if (a.innerText[0] === "F") {
+                debugger
+                document.getElementById(`Gb${a.innerText.slice(3)}.mp3`).play();
+            } else if (a.innerText[0] === "G") {
+                debugger
+                document.getElementById(`Ab${a.innerText.slice(3)}.mp3`).play();
+            }
+        }
     }
 
 
