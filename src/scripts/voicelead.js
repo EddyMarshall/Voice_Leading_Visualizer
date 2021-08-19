@@ -16,7 +16,7 @@ class voiceLead {
     }
 
     adjustkey(){
-        if (this.key === "B" || this.key === "Gb" || this.key === "D") {
+        if (this.key === "Gb" || this.key === "D") {
             this.range = "5, 8"
         } 
     }
