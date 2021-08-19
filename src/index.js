@@ -257,12 +257,15 @@ document.addEventListener("DOMContentLoaded", ()=>{
         const bottomHeader = document.getElementsByTagName("h4")
         const body = document.getElementById("body");
         const radios = document.getElementsByTagName("label")
+        const diatribes = document.getElementsByClassName("diatribe")
 
         
         if (darkModeButton.innerText === "Dark Mode") {
             topHeader[0].style.setProperty("color", "white")
             radios[0].style.setProperty("color", "white")
             radios[1].style.setProperty("color", "white")
+            diatribes[0].style.setProperty("color", "white")
+            diatribes[1].style.setProperty("color", "white")
             darkModeButton.innerText = "Light Mode"
             body.style.setProperty("--bodyColor", "black")
 
@@ -275,6 +278,8 @@ document.addEventListener("DOMContentLoaded", ()=>{
             topHeader[0].style.setProperty("color", "black")
             radios[0].style.setProperty("color", "black")
             radios[1].style.setProperty("color", "black")
+            diatribes[0].style.setProperty("color", "black")
+            diatribes[1].style.setProperty("color", "black")
 
             darkModeButton.innerText = "Dark Mode"
             body.style.setProperty("--bodyColor", "aliceblue")
