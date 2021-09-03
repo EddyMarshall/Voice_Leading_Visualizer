@@ -134,6 +134,7 @@ body {
   border-radius: 10px;
   border: 1px solid #AAAAAA;
   font-size: x-large;
+  box-shadow: 0 4px 2px -2px gray
 }
 
 .showing {
