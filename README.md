@@ -14,7 +14,9 @@ the fretboard so that they can smoothly transition between chords with as
 little movement as possible. This will make them better solo players, and 
 much better band members as they will no longer be stepping on the musical
 toes of what the other musicians are playing. 
-__________________________________________________________________________________________
+
+# Live Site: [Voice Leading Visualizer](https://eddymarshall.github.io/Voice_Leading_Visualizer/)
+
 
 ### In Voice Leading Visualizer users will be able to:
 1. Input two chords and see all the different ways to smoothly move from one 
