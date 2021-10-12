@@ -9,13 +9,13 @@ document.addEventListener("DOMContentLoaded", ()=>{
     const helpButton = document.getElementById("tutorial")
     
     helpButton.addEventListener("mouseover", () => {
-        const tutorialInfo = document.getElementById("tutorial-image")
-        tutorialInfo.style.setProperty("--tutorial-image", "block")
+        const tutorialInfo = document.getElementById("tutorial-background")
+        tutorialInfo.style.setProperty("--tutorial-background", "block")
     })
 
     document.addEventListener("click", () => {
-        const tutorialInfo = document.getElementById("tutorial-image")
-        tutorialInfo.style.setProperty("--tutorial-image", "none")
+        const tutorialInfo = document.getElementById("tutorial-background")
+        tutorialInfo.style.setProperty("--tutorial-background", "none")
     })
 
     //initializes with default setting
