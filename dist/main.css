@@ -134,6 +134,9 @@ body {
   border-radius: 10px;
   border: 1px solid #AAAAAA;
   font-size: x-large;
+  box-shadow: 0 4px 2px -2px black;
+  border-radius: 19px;
+  padding: 5px 10px 5px 10px;
 }
 
 .showing {
@@ -160,8 +163,14 @@ h4 {
   color: black;
 }
 
+.radio-label {
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
 .navradios {
   display: var(--navdisplay);
+  margin-top: 6px;
 }
 
 #tutorial:hover {
@@ -173,10 +182,15 @@ h4 {
 }
 
 #audio-button {
+  display: flex;
+  align-items: center;
   cursor: pointer;
   width: fit-content;
   margin-left: 45%;
   background: slateblue;
+  box-shadow: 0 4px 2px -2px black;
+  border-radius: 19px;
+  padding: 5px 10px 5px 10px;
 }
 
 #play-button {

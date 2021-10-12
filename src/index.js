@@ -295,6 +295,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
         if (document.getElementById("voice-lead-toggle").innerText === "Enter Voice Leading Mode") {
             return
         }
+        e.preventDefault();
         const stringChoices = document.getElementById("string-selector");
         const stringChoice = stringChoices.options[stringChoices.selectedIndex].value;
         const a = document.getElementById("harmonic-distance")
