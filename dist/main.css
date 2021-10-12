@@ -21,7 +21,6 @@ h2 {
 
 .top-navbar {
   background-color: slateblue;
-
 }
 
 #title {
@@ -135,7 +134,6 @@ body {
   border-radius: 10px;
   border: 1px solid #AAAAAA;
   font-size: x-large;
-  box-shadow: 0 4px 2px -2px gray
 }
 
 .showing {
@@ -170,9 +168,19 @@ h4 {
   cursor: pointer;
 }
 
+#audio-button-container {
+  display: flex;
+}
+
 #audio-button {
   cursor: pointer;
-  text-decoration: underline;
+  width: fit-content;
+  margin-left: 45%;
+  background: slateblue;
+}
+
+#play-button {
+  margin-right: 10px;
 }
 
 #audio-button:active {
