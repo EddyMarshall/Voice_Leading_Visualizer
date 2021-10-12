@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
         tutorialInfo.style.setProperty("--tutorial-image", "block")
     })
 
-    helpButton.addEventListener("mouseout", () => {
+    document.addEventListener("click", () => {
         const tutorialInfo = document.getElementById("tutorial-image")
         tutorialInfo.style.setProperty("--tutorial-image", "none")
     })

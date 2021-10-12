@@ -6,7 +6,7 @@
   --menuVisibility: visible;
   --navdisplay: flex;
   --bodyColor: aliceblue;
-  --tutorial-image: none;
+  --tutorial-image: block;
 }
 
 h2 {
@@ -217,9 +217,7 @@ button:active {
 
 #tutorial-image {
   display: var(--tutorial-image);
-  left: 50%;
   position: absolute;
-  height: 85%;
   margin-left: auto;
   margin-right: auto;
   z-index: 4;

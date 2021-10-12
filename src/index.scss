@@ -4,7 +4,7 @@
     --menuVisibility: visible;
     --navdisplay: flex;
     --bodyColor: aliceblue;
-    --tutorial-image: none;
+    --tutorial-image: block;
 }
 
 h2 {
@@ -142,9 +142,12 @@ body {
 
 
 .dropdown, .VL-menu, .button, .dark-mode-toggle {
-    border-radius: 10px;
-    border: 1px solid #AAAAAA;
-    font-size: x-large;
+  border-radius: 10px;
+  border: 1px solid #AAAAAA;
+  font-size: x-large;
+  box-shadow: 0 4px 2px -2px black;
+  border-radius: 19px;
+  padding: 5px 10px 5px 10px;
 }
 
 
@@ -176,17 +179,52 @@ h4 {
     color: black;
 }
 
+.radio-label {
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
 .navradios {
-    display: var(--navdisplay)
+  display: var(--navdisplay);
+  margin-top: 6px;
 }
 
 #tutorial:hover {
     cursor: pointer;
 }
 
+#audio-button-container {
+  display: flex;
+}
+
 #audio-button {
-    cursor: pointer;
-    text-decoration: underline;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  width: fit-content;
+  margin-left: 45%;
+  background: slateblue;
+  box-shadow: 0 4px 2px -2px black;
+  border-radius: 19px;
+  padding: 5px 10px 5px 10px;
+}
+
+button {
+  background: white;
+}
+
+button:hover {
+  background: MistyRose;
+  cursor: pointer;
+  transition-duration: 1s;
+}
+
+button:active {
+  transform: translateY(4px);
+}
+
+#play-button {
+  margin-right: 10px;
 }
 
 #audio-button:active {
@@ -195,9 +233,7 @@ h4 {
 
 #tutorial-image {
     display: var(--tutorial-image);
-    left: 50%;
     position: absolute;
-    height: 85%;
     margin-left: auto;
     margin-right: auto;
     z-index: 4;
