@@ -12,7 +12,6 @@ class voiceLead {
         this.adjustkey();
         this.createOriginalChord(1, stringChoice, this.range)
         this.oldHarmonicFunction = oldHarmonicFunction
-        
     }
 
     adjustkey(){

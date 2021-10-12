@@ -51,7 +51,7 @@ function createDefaultChordRanges(chord, stringChoice) {
             return "4, 8"
         }
     } else if (chord === "B Minor" || chord === "B Major") {
-        if (stringChoice === "1,2,3" || stringChoice === "2,3,4") {
+        if (stringChoice === "1,2,3" || stringChoice === "2,3,4" || stringChoice === "1, 2, 3") {
             return "7, 9"
         } else {
             return "4, 7"
