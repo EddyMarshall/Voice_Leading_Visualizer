@@ -58,6 +58,53 @@ ________________________________________________________________________________
 * npm to manage project dependencies.
 
 ___________________
+
+## Let's take a peek under the hood:
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Here is the function I created to switch
+into and out of voice leading mode. There are A LOT of things that need to happen so I made sure to use semantic variable names and outsource as many of the methods to other single use methods to ensure the code is maintainable.
+
+```js
+function switchModes() {
+        const toggleButton = document.getElementById("voice-lead-toggle");
+        const radioSelectors = document.getElementsByClassName("navradios")
+        document.getElementById("dynamic").innerHTML = ""
+        const currentMenuVisibility = document.getElementById("voice-leading-menus")
+        const cyclerMenuVisibility = document.getElementById("cycle-selector-menus")
+        const currentRange = createDefaultChordRanges(`${content.key} Major`, "1, 2, 3")
+        
+        if (toggleButton.innerText === "Enter Voice Leading Mode") {
+            //START voice leading mode
+            toggleButton.innerText = "Exit Voice Leading Mode"
+
+            //declare new voice lead object
+            content = new voiceLead(content.key, 1, "1, 2, 3", currentRange);
+            addFretDots();
+            currentMenuVisibility.style.visibility = "visible"
+            cyclerMenuVisibility.style.visibility = "visible"
+            if (currentMenuVisibility.children.length === 0) {
+                makeVoiceLeadingMenus();
+            }
+            radioSelectors[0].style.setProperty("--navdisplay", "none")
+            currentMenuVisibility.firstElementChild.firstElementChild.selected = "selected"
+        } else {
+            //EXIT voice leading mode
+            radioSelectors[0].style.setProperty("--navdisplay", "flex")
+            toggleButton.innerText = "Enter Voice Leading Mode"
+            currentMenuVisibility.style.visibility = "hidden"
+            cyclerMenuVisibility.style.visibility = "hidden"
+
+            //declare new non voice leading guitar
+            content = new Guitar(body, content.guitar.key, dynamic);
+            addFretDots();
+        }
+
+        //helper method to set the chord menu back to the root chord
+        resetChordMenu();
+        addChordChangeListener();
+    }
+```
+___________________
 ### Coming Soon:
 
 * Play along section in which the user specifies a tempo and a harmonic cycle, then plays along the changing visualization with a click track.
